@@ -1,0 +1,100 @@
+Altera SOPC Builder Version 9.00 Build 132
+Copyright (c) 1999-2009 Altera Corporation.  All rights reserved.
+
+
+# 2019.04.02 20:30:26 (*) mk_custom_sdk starting
+# 2019.04.02 20:30:26 (*) Reading project H:/sram/quartus_project/system0.ptf.
+
+# 2019.04.02 20:30:26 (*) Finding all CPUs
+# 2019.04.02 20:30:26 (*) Finding all available components
+# 2019.04.02 20:30:26 (*) Reading H:/sram/quartus_project/.sopc_builder/install.ptf
+
+# 2019.04.02 20:30:26 (*) Found 68 components
+
+# 2019.04.02 20:30:27 (*) Finding all peripherals
+
+# 2019.04.02 20:30:27 (*) Finding software components
+
+# 2019.04.02 20:30:28 (*) (Legacy SDK Generation Skipped)
+# 2019.04.02 20:30:28 (*) (All TCL Script Generation Skipped)
+# 2019.04.02 20:30:28 (*) (No Libraries Built)
+# 2019.04.02 20:30:28 (*) (Contents Generation Skipped)
+# 2019.04.02 20:30:28 (*) mk_custom_sdk finishing
+
+# 2019.04.02 20:30:28 (*) Starting generation for system: system0.
+
+.
+.
+.
+.
+.
+.
+.
+..
+
+# 2019.04.02 20:30:29 (*) Running Generator Program for cpu
+
+# 2019.04.02 20:30:31 (*)   Checking for plaintext license.
+# 2019.04.02 20:30:32 (*)   Plaintext license not found.
+# 2019.04.02 20:30:32 (*)   Checking for encrypted license (non-evaluation).
+# 2019.04.02 20:30:33 (*)   Encrypted license found.  SOF will not be time-limited.
+# 2019.04.02 20:30:33 (*)   Getting CPU configuration settings
+# 2019.04.02 20:30:33 (*)   Elaborating CPU configuration settings
+# 2019.04.02 20:30:33 (*)   Creating all objects for CPU
+# 2019.04.02 20:30:33 (*)     Testbench
+
+# 2019.04.02 20:30:34 (*)     Instruction decoding
+# 2019.04.02 20:30:34 (*)       Instruction fields
+# 2019.04.02 20:30:34 (*)       Instruction decodes
+# 2019.04.02 20:30:35 (*)       Signals for RTL simulation waveforms
+# 2019.04.02 20:30:35 (*)       Instruction controls
+# 2019.04.02 20:30:35 (*)     Pipeline frontend
+# 2019.04.02 20:30:36 (*)     Pipeline backend
+# 2019.04.02 20:30:42 (*)   Generating HDL from CPU objects
+# 2019.04.02 20:30:47 (*)   Creating encrypted HDL
+
+# 2019.04.02 20:30:50 (*) Running Generator Program for sdram
+
+# 2019.04.02 20:30:51 (*) Running Generator Program for epcs_flash_controller
+
+# 2019.04.02 20:30:53 (*) Running Generator Program for sysid
+
+# 2019.04.02 20:30:54 (*) Running Generator Program for jtag_uart
+
+# 2019.04.02 20:30:56 (*) Running Generator Program for sys_clk_timer
+
+# 2019.04.02 20:30:57 (*) Running Generator Program for dm9000a_0
+
+# 2019.04.02 20:31:00 (*) Running Generator Program for system0_clock_0
+
+# 2019.04.02 20:31:02 (*) Running Generator Program for system0_clock_1
+
+.
+
+
+# 2019.04.02 20:31:05 (*) Running Test Generator Program for sdram
+
+# 2019.04.02 20:31:06 (*) Making arbitration and system (top) modules.
+
+
+WARNING:
+Should not have Active_CS_Through_Read_Latency set without setting some Read_Latency. at c:/altera/90/quartus//sopc_builder/bin/europa/europa_utils.pm line 248.
+
+# 2019.04.02 20:31:12 (*) Generating Quartus symbol for top level: system0
+
+# 2019.04.02 20:31:12 (*) Symbol H:/sram/quartus_project/system0.bsf already exists, no need to regenerate
+# 2019.04.02 20:31:12 (*) Creating command-line system-generation script: H:/sram/quartus_project/system0_generation_script
+
+# 2019.04.02 20:31:12 (*) Running setup for HDL simulator: modelsim
+
+
+# 2019.04.02 20:31:12 (*) Completed generation for system: system0.
+# 2019.04.02 20:31:12 (*) THE FOLLOWING SYSTEM ITEMS HAVE BEEN GENERATED:
+  SOPC Builder database : H:/sram/quartus_project/system0.ptf 
+  System HDL Model : H:/sram/quartus_project/system0.v 
+  System Generation Script : H:/sram/quartus_project/system0_generation_script 
+
+# 2019.04.02 20:31:12 (*) SUCCESS: SYSTEM GENERATION COMPLETED.
+
+
+Press 'Exit' to exit.

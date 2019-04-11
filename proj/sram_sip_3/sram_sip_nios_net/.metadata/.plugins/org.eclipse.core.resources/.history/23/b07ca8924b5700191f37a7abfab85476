@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h> 
+#include "includes.h"
+
+//-----------------cmd
+#define WRITE_ONE 1
+#define READ 2
+#define WRITE_ALL 3
+#define READ_D 4
+#define WRITE_CFG 5
+#define CUT_CNT 6
+
+
+
+
+
+
+
+
+typedef struct
+{
+    INT32U cmd;
+    INT32U addr;
+    INT32U data;
+    INT32U area;
+    INT32U inc_dec;
+    INT32U cycle;
+    INT32U jump;
+} CMD_PACKAGE; 
+
+INT32U buf_int (INT8U* buf)
+{
+    int i=0;
+    INT32U number=0;
+    for(i=0;i<sizeof(INT32U);i++)
+    {       
+        number |= ((INT32U)(*(buf+i))<<(i<<3));//little-endian   
+    }
+    return number;
+}
+
+
+
+int decoder_cmd (INT8U* buf,CMD_PACKAGE* cmd_package)
+{
+    cmd_package->cmd=buf_int(buf);
+    if(cmd_package->cmd==)
+
+
+
+
+}

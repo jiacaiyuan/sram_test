@@ -1,0 +1,27 @@
+#ifndef COMMUNICATION_H_
+#define COMMUNICATION_H_
+
+//-----------------cmd
+#define WRITE_ONE 1
+#define READ 2
+#define WRITE_ALL 3
+#define READ_D 4
+#define WRITE_CFG 5
+#define CUT_CNT 6
+//-----------------cmd
+
+
+
+typedef struct
+{
+    INT32U cmd;
+    INT32U addr;
+    INT32U data;
+    INT32U area;
+    INT32U inc_dec;
+    INT32U cycle;
+    INT32U jump;
+} CMD_PACKAGE; 
+
+
+#endif /*COMMUNICATION_H_*/

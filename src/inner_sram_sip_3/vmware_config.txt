@@ -1,0 +1,24 @@
+step one:
+
+close the OS
+	virtual machine
+		setting
+			network adapter  
+				network connecting
+					choose bridge mode
+					note:don't choose the copy physical
+
+step two:
+
+edit
+	virtual network editor
+		change the setting
+			bridge to the NIC that about the Ethernet in your host computer
+
+
+step three:
+
+open the OS
+	cmd the 'ifconfig'
+	get the MAC address and the name of NIC
+	

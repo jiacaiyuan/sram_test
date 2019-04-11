@@ -1,0 +1,10 @@
+typedef struct
+{
+    INT32U cmd;
+    INT32U addr;
+    INT32U data;
+    INT32U area;
+    INT32U inc_dec;
+    INT32U cycle;
+    INT32U jump;
+} CMD_PACKAGE; 

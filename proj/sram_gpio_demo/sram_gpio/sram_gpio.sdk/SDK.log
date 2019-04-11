@@ -1,0 +1,91 @@
+21:21:06 INFO  : Launching XSDB server: xsdb.bat -interactive D:\sram_test\sram_gpio_1\sram_gpio\sram_gpio.sdk\temp_xsdb_launch_script.tcl
+21:21:16 INFO  : XSDB server has started successfully.
+21:21:20 INFO  : Processing command line option -hwspec D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper.hdf.
+21:30:03 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:30:05 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+21:30:07 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+21:30:25 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+21:30:25 INFO  : 'fpga -state' command is executed.
+21:30:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:30:26 INFO  : Sourcing of 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+21:30:26 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+21:30:26 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system.hdf'.
+21:30:27 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+21:30:27 INFO  : 'stop' command is executed.
+21:30:28 INFO  : 'ps7_init' command is executed.
+21:30:28 INFO  : 'ps7_post_config' command is executed.
+21:30:28 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:30:28 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+21:30:28 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:30:29 INFO  : The application 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/sram_gpio/Debug/sram_gpio.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:30:29 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/sram_gpio/Debug/sram_gpio.elf
+----------------End of Script----------------
+
+21:30:29 INFO  : Memory regions updated for context APU
+21:30:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:30:29 INFO  : 'con' command is executed.
+21:30:29 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+21:44:18 INFO  : Launching XSDB server: xsdb.bat -interactive D:\sram_test\sram_gpio_1\sram_gpio\sram_gpio.sdk\temp_xsdb_launch_script.tcl
+21:44:21 INFO  : XSDB server has started successfully.
+21:44:21 WARN  : channel "tcfchan#1" closed
+09:21:18 INFO  : Launching XSDB server: xsdb.bat -interactive D:\sram_test\sram_gpio_1\sram_gpio\sram_gpio.sdk\temp_xsdb_launch_script.tcl
+09:21:25 INFO  : XSDB server has started successfully.
+09:21:38 INFO  : Processing command line option -hwspec D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper.hdf.
+09:21:49 INFO  : Checking for hwspec changes in the project system_wrapper_hw_platform_0.
+09:22:10 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+09:22:12 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+09:22:14 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+09:22:32 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+09:22:32 INFO  : 'fpga -state' command is executed.
+09:22:32 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+09:22:32 INFO  : Sourcing of 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+09:22:33 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+09:22:33 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system.hdf'.
+09:22:33 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+09:22:33 INFO  : 'stop' command is executed.
+09:22:34 INFO  : 'ps7_init' command is executed.
+09:22:34 INFO  : 'ps7_post_config' command is executed.
+09:22:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+09:22:35 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+09:22:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+09:22:35 INFO  : The application 'D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/sram_gpio/Debug/sram_gpio.elf' is downloaded to processor 'ps7_cortexa9_0'.
+09:22:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_gpio_1/sram_gpio/sram_gpio.sdk/sram_gpio/Debug/sram_gpio.elf
+----------------End of Script----------------
+
+09:22:36 INFO  : Memory regions updated for context APU
+09:22:36 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+09:22:36 INFO  : 'con' command is executed.
+09:22:36 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+09:23:17 INFO  : Launching XSDB server: xsdb.bat -interactive D:\sram_test\sram_gpio_1\sram_gpio\sram_gpio.sdk\temp_xsdb_launch_script.tcl

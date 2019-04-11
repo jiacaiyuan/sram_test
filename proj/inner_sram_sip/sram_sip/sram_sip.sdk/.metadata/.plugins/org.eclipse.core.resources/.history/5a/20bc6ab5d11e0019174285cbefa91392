@@ -1,0 +1,266 @@
+/******************************************************************************
+*
+* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+
+/*
+ * helloworld.c: simple test application
+ *
+ * This application configures UART 16550 to baud rate 9600.
+ * PS7 UART (Zynq) is not initialized by this application, since
+ * bootrom/bsp configures it to baud rate 115200
+ *
+ * ------------------------------------------------
+ * | UART TYPE   BAUD RATE                        |
+ * ------------------------------------------------
+ *   uartns550   9600
+ *   uartlite    Configurable only in HW design
+ *   ps7_uart    115200 (configured by bootrom/bsp)
+ */
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xil_io.h"
+#include "xparameters.h"
+#include "sram_control.h"
+
+
+#define CTRL_ID XPAR_SRAM_CONTROL_0_DEVICE_ID
+#define CTRL_BASE XPAR_SRAM_CONTROL_0_S00_AXI_BASEADDR
+#define CTRL_CMD_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG0_OFFSET
+#define CTRL_OUTPDATA_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG1_OFFSET
+#define CTRL_OUTPADDR_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG2_OFFSET
+#define CTRL_STATUS_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG3_OFFSET
+#define DELAY     1000000
+//cmd: [31:24]=operation [23:16]=inp_data [15:0]=inp_addr
+#define WRITE_ALL 0x04<<24
+#define READ_ALL  0x08<<24
+#define	WRITE_ONE 0x10<<24
+#define READ_ONE  0x20<<24
+#define READ_REG  0x40<<24
+#define ADDR_EDGE 0x3ff
+
+
+
+void write_all(u32 data)
+{
+	u32 cmd;
+	int delay;
+	cmd=WRITE_ALL|(data<<16)|(0xffff<<0);
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE, CTRL_CMD_OFFSET, cmd);
+	printf("W_A %x\n\r",data); //format operation data address
+	for(delay=0;delay<DELAY;delay++);
+	return;
+}
+
+void write_one(u32 addr,u32 data)
+{
+	u32 cmd;
+	int delay;
+	if(addr>ADDR_EDGE)
+	{
+		print("ERROR: ADDRESS OVERFLOW\n\r");//detect by the slave computer
+		//can move this in the host computer to do it
+		return;
+	}
+	else
+	{
+		cmd=WRITE_ONE|(data<<16)|(addr<<0);
+		for(delay=0;delay<DELAY;delay++);
+		SRAM_CONTROL_mWriteReg(CTRL_BASE, CTRL_CMD_OFFSET, cmd);
+		printf("W_O %x %x\n\r",addr,data); //format operation data address
+		for(delay=0;delay<DELAY;delay++);
+		return;
+	}
+}
+
+void read_all(void)
+{
+	u32 cmd;
+	int delay;
+	cmd=READ_ALL|0xffffff;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE, CTRL_CMD_OFFSET, cmd);
+	for(delay=0;delay<DELAY;delay++);
+}
+
+u32 read_reg(u32 addr)
+{
+	u32 cmd;
+	int delay;
+	u32 result_data,result_addr;
+	if(addr>ADDR_EDGE)
+	{
+		print("ERROR: ADDRESS OVERFLOW\n\r");
+		return -1;
+	}
+	else
+	{
+		cmd=READ_REG|0xff<<16|addr<<0;
+		for(delay=0;delay<DELAY;delay++);
+		SRAM_CONTROL_mWriteReg(CTRL_BASE, CTRL_CMD_OFFSET, cmd);
+		for(delay=0;delay<DELAY;delay++);
+		result_data=SRAM_CONTROL_mReadReg(CTRL_BASE, CTRL_OUTPDATA_OFFSET);
+		for(delay=0;delay<DELAY;delay++);
+		result_addr=SRAM_CONTROL_mReadReg(CTRL_BASE,CTRL_OUTPADDR_OFFSET);
+		for(delay=0;delay<DELAY;delay++);
+		printf("R_R %x %x\n\r",result_addr,result_data);
+		return result_data;
+	}
+}
+
+u32 read_one(u32 addr)
+{
+	u32 cmd;
+	int delay;
+	u32 result_data,result_addr;
+	if(addr>ADDR_EDGE)
+	{
+		print("ERROR: ADDRESS OVERFLOW\n\r");
+		return -1;
+	}
+	else
+	{
+		cmd=READ_ONE|(0xff<<16)|(addr<<0);
+		for(delay=0;delay<DELAY;delay++);
+		SRAM_CONTROL_mWriteReg(CTRL_BASE, CTRL_CMD_OFFSET, cmd);
+		for(delay=0;delay<DELAY;delay++);
+		result_data=SRAM_CONTROL_mReadReg(CTRL_BASE, CTRL_OUTPDATA_OFFSET);
+		for(delay=0;delay<DELAY;delay++);
+		result_addr=SRAM_CONTROL_mReadReg(CTRL_BASE,CTRL_OUTPADDR_OFFSET);
+		for(delay=0;delay<DELAY;delay++);
+		printf("R_O %x %x\n\r",result_addr,result_data);
+		return result_data;
+	}
+}
+
+
+int scanf_int(void)
+{
+	int i,inp_int=0;
+	for(i=0;i<sizeof(int);i++)
+	{
+		//inp_int = ((e<<8)|(getchar()));//big-endian
+		//instead of scanf
+		inp_int |= ((int)getchar()<<(i<<3));//little-endian
+
+	}
+	return inp_int;
+}
+
+
+
+
+
+void test_inp_outp(void)
+{
+	char a,b,d;
+	int c;
+	print("test input and output\n\r");
+	a=getchar();
+	b=getchar();
+	printf("a=%x\n\r",a);
+	printf("c=%x\n\r",b);
+
+	int i,e=0;
+	c=scanf_int();
+	d=getchar();
+	printf("c=%d\n",c);
+	printf("d=%x\n\r",d);
+}
+
+
+
+
+
+
+
+
+
+int main()
+{
+    init_platform();
+    test_inp_outp();
+/*    print("INFO: Ready to test SRAM\n\r");
+    int inp_cmd;
+    int inp_addr,inp_data;
+    while(1)
+    {
+    	scanf("%d",&inp_cmd);
+    	if(inp_cmd==1)
+    	{
+    		scanf("%d",&inp_addr);
+    		scanf("%d",&inp_data);
+    		write_one(inp_addr,inp_data);
+    	}
+    	else if(inp_cmd==2)
+    	{
+    		scanf("%d",&inp_addr);
+    		read_one(inp_addr);
+    	}
+    	else if(inp_cmd==3)
+    	{
+    		scanf("%d",&inp_data);
+    		write_all(inp_data);
+    	}
+    	else if(inp_cmd==4)
+    	{
+    		read_all();
+    	}
+    	else if(inp_cmd==5)
+    	{
+    		scanf("%d",&inp_addr);
+    		read_reg(inp_addr);
+    	}
+    	else
+    	{
+    		break;
+    	}
+
+    }
+    print("Bye\n\r");
+    //test some address
+    write_one(0xff,0x00);
+    read_one(0xff);
+    write_one(0x00,0xa5);
+    read_one(0x00);
+    write_one(0x3ff,0x5a);
+    read_one(0x3ff);
+    write_one(0x11,0xff);
+    read_one(0x11);
+    write_all(0x5a);
+    read_all();
+    read_reg(0xff);
+*/
+    cleanup_platform();
+    return 0;
+}

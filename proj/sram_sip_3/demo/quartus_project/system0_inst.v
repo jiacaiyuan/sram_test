@@ -1,0 +1,37 @@
+  //Example instantiation for system 'system0'
+  system0 system0_inst
+    (
+      .ENET_CLK_from_the_dm9000a_0         (ENET_CLK_from_the_dm9000a_0),
+      .ENET_CMD_from_the_dm9000a_0         (ENET_CMD_from_the_dm9000a_0),
+      .ENET_CS_N_from_the_dm9000a_0        (ENET_CS_N_from_the_dm9000a_0),
+      .ENET_DATA_to_and_from_the_dm9000a_0 (ENET_DATA_to_and_from_the_dm9000a_0),
+      .ENET_INT_to_the_dm9000a_0           (ENET_INT_to_the_dm9000a_0),
+      .ENET_RD_N_from_the_dm9000a_0        (ENET_RD_N_from_the_dm9000a_0),
+      .ENET_RST_N_from_the_dm9000a_0       (ENET_RST_N_from_the_dm9000a_0),
+      .ENET_WR_N_from_the_dm9000a_0        (ENET_WR_N_from_the_dm9000a_0),
+      .clk_cpu                             (clk_cpu),
+      .clk_sdram                           (clk_sdram),
+      .iOSC_50_to_the_dm9000a_0            (iOSC_50_to_the_dm9000a_0),
+      .led_0_from_the_avalon_wrapper_0     (led_0_from_the_avalon_wrapper_0),
+      .led_1_from_the_avalon_wrapper_0     (led_1_from_the_avalon_wrapper_0),
+      .led_2_from_the_avalon_wrapper_0     (led_2_from_the_avalon_wrapper_0),
+      .led_3_from_the_avalon_wrapper_0     (led_3_from_the_avalon_wrapper_0),
+      .reset_n                             (reset_n),
+      .s_addr_from_the_avalon_wrapper_0    (s_addr_from_the_avalon_wrapper_0),
+      .s_cen_from_the_avalon_wrapper_0     (s_cen_from_the_avalon_wrapper_0),
+      .s_clk_from_the_avalon_wrapper_0     (s_clk_from_the_avalon_wrapper_0),
+      .s_ddata_from_the_avalon_wrapper_0   (s_ddata_from_the_avalon_wrapper_0),
+      .s_oen_from_the_avalon_wrapper_0     (s_oen_from_the_avalon_wrapper_0),
+      .s_qdata_to_the_avalon_wrapper_0     (s_qdata_to_the_avalon_wrapper_0),
+      .s_wen_from_the_avalon_wrapper_0     (s_wen_from_the_avalon_wrapper_0),
+      .zs_addr_from_the_sdram              (zs_addr_from_the_sdram),
+      .zs_ba_from_the_sdram                (zs_ba_from_the_sdram),
+      .zs_cas_n_from_the_sdram             (zs_cas_n_from_the_sdram),
+      .zs_cke_from_the_sdram               (zs_cke_from_the_sdram),
+      .zs_cs_n_from_the_sdram              (zs_cs_n_from_the_sdram),
+      .zs_dq_to_and_from_the_sdram         (zs_dq_to_and_from_the_sdram),
+      .zs_dqm_from_the_sdram               (zs_dqm_from_the_sdram),
+      .zs_ras_n_from_the_sdram             (zs_ras_n_from_the_sdram),
+      .zs_we_n_from_the_sdram              (zs_we_n_from_the_sdram)
+    );
+

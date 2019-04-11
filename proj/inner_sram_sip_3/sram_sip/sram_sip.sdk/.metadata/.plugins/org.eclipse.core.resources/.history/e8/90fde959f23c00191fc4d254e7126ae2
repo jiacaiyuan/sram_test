@@ -1,0 +1,989 @@
+#include "mac_driver.h"
+/************************** Variable Definitions *****************************/
+static XScuGic IntcInstance;    /* The instance of the SCUGic Driver */
+static XScuTimer TimerInstance; /* The instance of the SCUTimer Driver */
+/* Detected link speed goes here. */
+int Link_Speed = 1000;
+/* Detected PHY address goes here. */
+int PhyAddress;
+u32 NewPktRecd = 0;
+int init_finish_flag=0;
+XEmacPs Mac;
+/*
+ * Aligned memory segments to be used for Rx buffer descriptors
+ */
+
+u8 RxBuf[RX_DESCS][XEMACPS_PACKET_LEN + 2]
+		__attribute__ ((aligned(XEMACPS_RX_BUF_ALIGNMENT)));
+
+volatile u8 PDelayRespSent;
+volatile u8 SyncSent;
+volatile u32 PTPSendPacket = 0;
+
+int count_rx,count_tx=0;
+
+unsigned int my_protocol_flag = 0;
+unsigned int count = 0;
+
+unsigned char src_mac[6] = {0x01,0x02,0x03,0x04,0x05,0x06}; //Pynq
+unsigned char dst_mac[6] = {0X00,0x0C,0x29,0xb5,0x73,0x49}; //VMware the laptop thinkpad X1--jcyuan
+unsigned char Recvbuf[XEMACPS_PACKET_LEN + 2];
+unsigned char Sendbuf[XEMACPS_PACKET_LEN + 2];  //All Ethernet
+int mymacinit(unsigned char *mymac, XEmacPs *EmacPsInstancePtr)
+{
+	XEmacPs_Config *Cfg;
+	int Status = XST_SUCCESS;
+	u32 Emac_option = 0;
+
+	xil_printf("Entering into main() \r\n");
+
+	Xil_DisableMMU();
+	Xil_SetTlbAttributes(0x0FF00000, 0xc02); // addr, attr
+	Xil_EnableMMU();
+
+	/* Initialize SCUTIMER */
+	if (XEmacPs_InitScuTimer()  != XST_SUCCESS) while(1);
+	/*
+	 * Get the configuration of EmacPs hardware.
+	 */
+	Cfg = XEmacPs_LookupConfig(EMACPS_DEVICE_ID);
+	/*
+	 * Initialize EmacPs hardware.
+	 */
+	Status = XEmacPs_CfgInitialize(EmacPsInstancePtr, Cfg,
+							Cfg->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Set the MAC address
+	 */
+	Status = XEmacPs_SetMacAddress(EmacPsInstancePtr,
+					(unsigned char*)mymac, 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+
+	/*
+	 * Detect and initialize the PHY
+	 */
+	EmacPs_PHY_init(EmacPsInstancePtr);
+	sleep(2);
+	/*
+	 * Set the operating speed in EmacPs hardware.
+	 */
+	XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, Link_Speed);
+	sleep(2);
+	u32 bottom,top,mac,rev_buffer_size,dis_cp_pause_frame,rx_chksum_offld_en=0;
+
+  //  Xil_Out32(0xE000B088, 0x04030201);
+  //  Xil_Out32(0xE000B08C, 0x00000605);
+    Xil_Out32(0xE000B0A8, 0x80008874);
+
+    rev_buffer_size = (Xil_In32(0xE000B010))&0xff00ffff;
+    Xil_Out32(0xE000B010, rev_buffer_size|0x00190000);
+    rev_buffer_size = Xil_In32(0xE000B010);
+
+    dis_cp_pause_frame = (Xil_In32(0xE000B004))&0xff7ffdff;
+    Xil_Out32(0xE000B004, dis_cp_pause_frame|0x00800200);
+    dis_cp_pause_frame = Xil_In32(0xE000B004);
+
+    rx_chksum_offld_en = (Xil_In32(0xE000B004))&0xfaffffff;
+    Xil_Out32(0xE000B004, rx_chksum_offld_en|0x04000000);
+    rx_chksum_offld_en = Xil_In32(0xE000B004);
+
+    bottom = Xil_In32(0xE000B088);
+    top    = Xil_In32(0xE000B08C);
+    mac    = Xil_In32(0xE000B0A8);
+
+    printf("bottom = %x\n",bottom);
+    printf("top = %x\n",top);
+    printf("mac = %x\n",mac);
+    printf("rev_buffer_size = %x\n",rev_buffer_size);
+    printf("dis_cp_pause_frame = %x\n",dis_cp_pause_frame);
+    printf("rx_chksum_offld_en = %x\n",rx_chksum_offld_en);
+
+	//XEmacPs_Stop(EmacPsInstancePtr);
+	/*
+	 * Enable the promiscuous mode in EmacPs hardware.
+	 */
+/*	Status = XEmacPs_SetOptions(EmacPsInstancePtr, XEMACPS_PROMISC_OPTION);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XEmacPs_SetOptions fail\n");
+		return XST_FAILURE;
+	}
+	Emac_option = XEmacPs_GetOptions(EmacPsInstancePtr);
+	xil_printf("Emac_option = %x\n",Emac_option);
+*/
+/*	Status = XEmacPs_ClearOptions(EmacPsInstancePtr, XEMACPS_BROADCAST_OPTION);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XEmacPs_ClearOptions fail\n");
+		return XST_FAILURE;
+	}
+	Emac_option = XEmacPs_GetOptions(EmacPsInstancePtr);
+	xil_printf("Emac_option = %x\n",Emac_option);
+	//must comment it if not it don't work------------------jcyuan
+*/
+	/*
+	 * Register Ethernet Rx, Tx and Error handlers with the EmacPs driver.
+	 */
+	Status = XEmacPs_SetHandler (EmacPsInstancePtr,
+				XEMACPS_HANDLER_DMARECV,
+				(void *)XEmacPs_Rx_InterruptHandler,
+				EmacPsInstancePtr);
+	Status |= XEmacPs_SetHandler (EmacPsInstancePtr,
+				XEMACPS_HANDLER_DMASEND,
+				(void *)XEmacPs_Tx_InterruptHandler,
+				EmacPsInstancePtr);
+	Status |= XEmacPs_SetHandler (EmacPsInstancePtr,
+				XEMACPS_HANDLER_ERROR,
+				(void *)XEmacPs_Error_InterruptHandler,
+				EmacPsInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Connect to the interrupt controller and enable interrupts in
+	 * interrupt controller.
+	 */
+	Status = XEmacPs_SetupIntrSystem(&IntcInstance, EmacPsInstancePtr,
+					&TimerInstance, EMACPS_IRPT_INTR,
+					TIMER_IRPT_INTR);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	Xil_ExceptionEnable();
+	//STOP
+	XEmacPs_Stop(EmacPsInstancePtr);
+
+	/*
+	 * Initialize the DMA and buffer descriptors
+	 */
+	Status = XEmacPs_InitializeEmacPsDma (EmacPsInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Enable the timer interrupt in the timer module
+	 */
+	XScuTimer_EnableInterrupt(&TimerInstance);
+	init_finish_flag = 1;
+	xil_printf("MAC init successfully\n");
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
+*
+* This function is the timer ISR that is invoked every ?? mseconds.
+*
+*
+* @param	InstancePntr is a pointer to the instance of the
+*		XEmacPs driver.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+
+void XEmacPs_TimerInterruptHandler_MY(XEmacPs *EmacPsInstancePtr)
+{
+	XScuTimer *TimerInstancePntr = &TimerInstance;
+	/*
+	 * Clear the Timer interrupt.
+	 */
+	XScuTimer_ClearInterruptStatus(TimerInstancePntr);
+	static unsigned int count_5ms=0;
+	count_5ms++;
+	if(count_5ms==2000)  //10000ms
+	{
+		count_5ms = 0;
+		printf("break check\n");//to avoid it don't work so show something----jcyuan
+	}
+}
+/*****************************************************************************/
+/**
+*
+* This function is the EmacPs Rx interrupt callback invoked from the EmacPs
+* driver. Here we set the flag NewPktRecd to true. This flag is checked for
+* in the main function for further processing of
+* packets.
+*
+* @param	InstancePntr is a pointer to the instance of the
+*		XEmacPs driver.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+
+void XEmacPs_Rx_InterruptHandler(XEmacPs *EmacPsInstancePtr)
+{
+	count_rx++;
+
+	NewPktRecd = TRUE;
+
+/******************************************/
+	unsigned int recvlen = 0;
+	recvlen = Mac_driver_PacketReceive(XEMACPS_PACKET_LEN+2, Recvbuf, EmacPsInstancePtr);
+
+	return;
+}
+/*****************************************************************************/
+/**
+*
+* This function is the Tx Done interrupt callback invoked from the EmacPs
+* driver.
+* For some packets, upon getting a Tx done interrupt some actions need
+* to be taked.
+*
+* @param	InstancePntr is a pointer to the instance of the
+*		XEmacPs driver.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XEmacPs_Tx_InterruptHandler (XEmacPs *InstancePtr)
+{
+	unsigned int NumBds;
+	unsigned int NumBdsToProcess;
+	XEmacPs_Bd *BdPtr, *CurBdPtr;
+	int Status;
+	XEmacPs_BdRing *TxRingPtr;
+	unsigned int *Temp;
+	count_tx++;
+//	xil_printf("			count_tx = %d\n\r",count_tx);
+	TxRingPtr = &XEmacPs_GetTxRing(InstancePtr);
+
+	NumBds = XEmacPs_BdRingFromHwTx( TxRingPtr,TX_DESCS, &BdPtr);
+	if (NumBds == 0) {
+			return;
+	}
+	NumBdsToProcess = NumBds;
+	CurBdPtr=BdPtr;
+	while (NumBdsToProcess > 0)
+	{
+
+		Temp = (unsigned int *)CurBdPtr;
+		Temp++;
+		*Temp &= XEMACPS_TXBUF_WRAP_MASK;
+		*Temp |= XEMACPS_TXBUF_USED_MASK;
+
+		CurBdPtr = XEmacPs_BdRingNext(TxRingPtr, CurBdPtr);
+		NumBdsToProcess--;
+		dmb();
+		dsb();
+	}
+	Status = XEmacPs_BdRingFree( TxRingPtr, NumBds, BdPtr);
+	if (Status != XST_SUCCESS) {
+		return;
+	}
+	return;
+}
+/*****************************************************************************/
+/**
+*
+* This function is the Error interrupt callback invoked from the EmacPs driver.
+*
+* @param	InstancePntr is a pointer to the instance of the
+*		XEmacPs driver.
+* @param	Direction can be Rx or Tx
+* @param	ErrorWord gives further information about the exact error type.
+*
+* @return	None.
+*
+* @note		This function needs to be revisited. Probably upon an error
+*		we need to reset the EmacPs hardware and reinitialize the BDs.
+*		However further study is needed. Whether for all errors we
+*		need to reset or some errors can be ignored.
+*
+******************************************************************************/
+void XEmacPs_Error_InterruptHandler (XEmacPs *InstancePtr,
+						u8 Direction, u32 ErrorWord)
+{
+	XEmacPs_Config *Cfg;
+	int Status = XST_SUCCESS;
+
+	xil_printf("In %s: EMAC Error Interrupt, Direction is %d and ErrorWord is %x \r\n",
+					__func__, Direction, ErrorWord);
+	XScuTimer_Stop(&TimerInstance);
+	XEmacPs_Stop(InstancePtr);
+	Xil_ExceptionDisable();
+	PDelayRespSent = 0;
+	SyncSent = 0;
+	PTPSendPacket = 0;
+	memset(RxBuf, 0, sizeof(RxBuf));
+	Link_Speed = 1000;
+	/* Initialize SCUTIMER */
+	if (XEmacPs_InitScuTimer()  != XST_SUCCESS) while(1);
+	/*
+	 * Get the configuration of EmacPs hardware.
+	 */
+	Cfg = XEmacPs_LookupConfig(EMACPS_DEVICE_ID);
+
+	/*
+	 * Initialize EmacPs hardware.
+	 */
+	Status = XEmacPs_CfgInitialize(InstancePtr, Cfg, Cfg->BaseAddress);
+	if (Status != XST_SUCCESS)
+	{
+		xil_printf("In function %s: XEmacPs_CfgInitialize failure \r\n",__func__);
+	}
+	/*
+	 * Set the MAC address
+	 */
+	Status = XEmacPs_SetMacAddress(InstancePtr,
+					(unsigned char*)src_mac, 1);
+	if (Status != XST_SUCCESS)
+	{
+		xil_printf("In function %s: XEmacPs_SetMacAddress failure \r\n",__func__);
+	}
+	XEmacPs_SetMdioDivisor(InstancePtr, MDC_DIV_224);
+
+	/*
+	 * Detect and initialize the PHY
+	 */
+	EmacPs_PHY_init(InstancePtr);
+	sleep(1);
+
+	/*
+	 * Set the operating speed in EmacPs hardware.
+	 */
+	XEmacPs_SetOperatingSpeed(InstancePtr, Link_Speed);
+	sleep(1);
+
+	/*
+	 * Enable the promiscuous mode in EmacPs hardware.
+	 */
+/*	Status = XEmacPs_SetOptions(InstancePtr, XEMACPS_PROMISC_OPTION);
+	if (Status != XST_SUCCESS)
+	{
+		xil_printf("In function %s: XEmacPs_SetOptions failure \r\n",__func__);
+		return;
+	}
+*/
+	/*
+	 * Register Ethernet Rx, Tx and Error handlers with the EmacPs driver.
+	 */
+	Status = XEmacPs_SetHandler (InstancePtr,
+				XEMACPS_HANDLER_DMARECV,
+				(void *)XEmacPs_Rx_InterruptHandler,
+				InstancePtr);
+	Status |= XEmacPs_SetHandler (InstancePtr,
+				XEMACPS_HANDLER_DMASEND,
+				(void *)XEmacPs_Tx_InterruptHandler,
+				InstancePtr);
+	Status |= XEmacPs_SetHandler (InstancePtr,
+				XEMACPS_HANDLER_ERROR,
+				(void *)XEmacPs_Error_InterruptHandler,
+				InstancePtr);
+	if (Status != XST_SUCCESS)
+	{
+		xil_printf("In function %s: XEmacPs_SetHandler failure \r\n",
+							__func__);
+	}
+	/*
+	 * Connect to the interrupt controller and enable interrupts in
+	 * interrupt controller.
+	 */
+	Status = XEmacPs_SetupIntrSystem(&IntcInstance,
+					InstancePtr,
+					&TimerInstance, EMACPS_IRPT_INTR,
+					TIMER_IRPT_INTR);
+	if (Status != XST_SUCCESS)
+	{
+		xil_printf("In function %s: XEmacPs_SetupIntrSystem failure \r\n",__func__);
+	}
+	Xil_ExceptionEnable();
+	/*
+	 * Enable the timer interrupt in the timer module
+	 */
+	XScuTimer_EnableInterrupt(&TimerInstance);
+
+	XEmacPs_Stop(InstancePtr);
+
+	/*
+	 * Initialize the DMA and buffer descriptors
+	 */
+	Status = XEmacPs_InitializeEmacPsDma (InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("In function %s: XEmacPs_InitializeEmacPsDma failure \r\n",__func__);
+	}
+}
+
+/****************************************************************************
+* * This function is the Tx send function.
+*
+* @param	PacketLen is a length of the send packet.
+* @param	PacketBuf is the pointer of the send packet.
+* @param	EmacPsInstancePtr is a pointer to the instance of the
+*		XEmacPs driver.
+*
+* @return	None.
+*
+* @note		None.
+****************************************************************************/
+void Mac_driver_PacketSend(unsigned int PacketLen, unsigned char* PacketBuf ,XEmacPs *EmacPsInstancePtr)
+{
+	int Status;
+	XEmacPs_Bd *BdPtr;
+	XEmacPs_BdRing *TxRingPtr;
+	Xil_ExceptionDisable();
+
+    while((XEmacPs_ReadReg(EmacPsInstancePtr->Config.BaseAddress,
+		XEMACPS_TXSR_OFFSET)) & 0x08);
+
+	TxRingPtr = &(XEmacPs_GetTxRing(EmacPsInstancePtr));
+	Status = XEmacPs_BdRingAlloc(TxRingPtr, 1, &BdPtr);
+	if (Status != XST_SUCCESS) {
+		Xil_ExceptionEnable();
+	}
+	/*
+	 * Fill the BD entries for the Tx1!!1`
+	 */
+
+	Xil_DCacheFlushRange((u32)PacketBuf, sizeof(EthernetFrame));//128
+
+	XEmacPs_BdSetAddressTx (BdPtr, PacketBuf);
+	XEmacPs_BdSetLength(BdPtr, PacketLen);
+	XEmacPs_BdClearTxUsed(BdPtr);
+	XEmacPs_BdSetLast(BdPtr);
+	dmb();
+	dsb();
+
+	Status = XEmacPs_BdRingToHw(TxRingPtr, 1, BdPtr);
+	if (Status != XST_SUCCESS) {
+		Xil_ExceptionEnable();
+	}
+	dmb();
+	dsb();
+	/*
+	 * Start the Tx
+	 */
+	XEmacPs_Transmit(EmacPsInstancePtr);
+	Xil_ExceptionEnable();
+}
+/****************************************************************************
+* * This function is the Rx receive function.
+*
+* @param	maxlen is a max length of the receive packet.
+* @param	packet is the pointer of the receive packet.
+* @param	EmacPsInstancePtr is a pointer to the instance of the
+*		XEmacPs driver.
+*
+* @return	None.
+*
+* @note		None.
+****************************************************************************/
+unsigned int Mac_driver_PacketReceive(unsigned int maxlen, unsigned char* packet ,XEmacPs *EmacPsInstancePtr)
+{
+	XEmacPs_Bd *BdPtr;
+	XEmacPs_Bd *CurBdPtr;
+	unsigned int NumBds;
+	unsigned int FreeBds;
+	int i;
+	int j;
+	u8 *BufAddr;
+	unsigned int BufLen;
+	int Status;
+	XEmacPs_BdRing *RxRingPtr;
+
+	/*
+	 * Get the ring pointers from EmacPs instance
+	 */
+	RxRingPtr = &XEmacPs_GetRxRing(EmacPsInstancePtr);
+
+	/*
+	 * Extract all available BDs from EmacPs.
+	 */
+	NumBds = XEmacPs_BdRingFromHwRx( RxRingPtr,RX_DESCS, &BdPtr);
+	if (NumBds == 0)
+		return (0); //print show each time NumBds=1-------jcyuan
+	//printf("NumBds = %d\n",NumBds);
+	for (i = 0, CurBdPtr=BdPtr; i < NumBds; i++)
+	{
+		/*
+		 * Get the buffer address in which the PTP packet is
+		 * stored from the BD.
+		 */
+		BufAddr = (void*)(INTPTR)(XEmacPs_BdGetBufAddr(CurBdPtr) &
+		~(XEMACPS_RXBUF_WRAP_MASK | XEMACPS_RXBUF_NEW_MASK));
+		BufLen = XEmacPs_BdGetLength(CurBdPtr);
+		// limit the length of search----jcyuan
+	    if (BufLen>maxlen-1)
+		{
+	    	BufLen=maxlen-1;
+	   	}
+
+		Xil_DCacheInvalidateRange((u32)BufAddr, BufLen);//132
+
+		//memcpy(packet, BufAddr, BufLen);
+		/*
+		 * Clear the used bit in the buffer so that it can
+		 * be reused.
+		 */
+		BufAddr[XEMACPS_PACKET_LEN - 2] = 0;
+		CurBdPtr = XEmacPs_BdRingNext( RxRingPtr, CurBdPtr);
+	}
+	for (j = 0; j < RX_DESCS; j++)
+	{
+		if(RxBuf[j][XEMACPS_PACKET_LEN - 2] == 0) //find the ownership=1 in all BD
+		{
+			memcpy(packet, &(RxBuf[j][0]), XEMACPS_PACKET_LEN);
+			//printf("ownership index is %d\n",j);
+		}
+	}
+	dmb();
+	dsb();
+	//printf("ok\n");
+
+	/*
+	 * Time to free the BDs
+	 */
+	XEmacPs_BdRingFree(RxRingPtr, NumBds, BdPtr);
+	/*
+	 * Time to reallocate the BDs
+	 */
+	FreeBds = XEmacPs_BdRingGetFreeCnt (RxRingPtr);
+	//printf("FreeBds = %d\n",FreeBds);printf show: each time FreeBds=1----jcyuan
+	Status = XEmacPs_BdRingAlloc (RxRingPtr, FreeBds,
+							&BdPtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	CurBdPtr = BdPtr;
+	for (i = 0; i < FreeBds; i++) {
+		for (j = 0; j < RX_DESCS; j++) {
+			if ((RxBuf[j][XEMACPS_PACKET_LEN - 2]) == 0) { //only one is 0----jcyuan
+				XEmacPs_BdSetAddressRx
+					(CurBdPtr, &(RxBuf[j][0]));
+				/*
+				 * Set the used bit in the Buffer
+				 */
+				RxBuf[j][XEMACPS_PACKET_LEN - 2] = 1;
+				/*
+				 * Clear the used bit so that it
+				 * can be reused.
+				 */
+				XEmacPs_BdClearRxNew (CurBdPtr); //ownership
+				break;
+			}
+		}
+		CurBdPtr = XEmacPs_BdRingNext (RxRingPtr, CurBdPtr);
+	}
+	/*
+	 * Submit the BDs to the hardware
+	 */
+	Status = XEmacPs_BdRingToHw (RxRingPtr, FreeBds, BdPtr);
+	Xil_ExceptionEnable();
+	return(BufLen);
+
+}
+int dest_flag,src_flag=0;
+void analyseETH(ETH_HEADER *eth)
+{
+	unsigned char* p = (unsigned char*)&eth->type;
+/*	if(eth->dest_1==0x01 && eth->dest_2==0x02 && eth->dest_3==0x03 && eth->dest_4==0x04 && eth->dest_5==0x05 && eth->dest_6==0x06)
+	{
+		dest_flag=1;
+	}
+	else
+	{
+		dest_flag=0;
+	}
+	if(eth->src_1==0x00 && eth->src_2==0x0C && eth->src_3==0x29 && eth->src_4==0x92 && eth->src_5==0x9F && eth->src_6==0x96)
+	{
+		src_flag=1;
+	}
+	else
+	{
+		src_flag=0;
+	}*/
+	if(p[0] == 0x88 && p[1] == 0x74 )//&& dest_flag == 1 && src_flag==1)
+	{
+		count++;
+		my_protocol_flag = 1;
+		printf("EHT my protocol-----%d\n",count);
+		//printf("dest: %02x.%02x.%02x.%02x.%02x.%02x\n", eth->dest_1,eth->dest_2,eth->dest_3,eth->dest_4,eth->dest_5,eth->dest_6);
+		//printf("src: %02x.%02x.%02x.%02x.%02x.%02x\n", eth->src_1,eth->src_2,eth->src_3,eth->src_4,eth->src_5,eth->src_6);
+		printf("EtherType: %02x%02x\n", p[0],p[1]);
+	}
+	else
+	{
+		my_protocol_flag = 0;
+	}
+}
+void analyseDATA(DATA_RECEIVE *data_recv)
+{
+    printf("Payload is: %d %d %d %d %d %d\n", data_recv->cmd,data_recv->addr
+   ,data_recv->data,data_recv->times,data_recv->inc_dec,data_recv->cycle);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initializes the SCUTimer.
+*
+* @param	None.
+*
+* @return	- XST_SUCCESS to indicate success.
+*		- XST_FAILURE to indicate failure
+*
+* @note		None.
+*
+******************************************************************************/
+int XEmacPs_InitScuTimer(void)
+{
+	int Status = XST_SUCCESS;
+	XScuTimer_Config *ConfigPtr;
+
+	/*
+	 * Get the configuration of Timer hardware.
+	 */
+	ConfigPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
+
+	/*
+	 * Initialize ScuTimer hardware.
+	 */
+	Status = XScuTimer_CfgInitialize(&TimerInstance, ConfigPtr,
+			ConfigPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XScuTimer_EnableAutoReload(&TimerInstance);
+
+	/*
+	 * Initialize ScuTimer with a count so that the interrupt
+	 * comes every 500 msec.
+	 */
+	XScuTimer_LoadTimer(&TimerInstance, TIMER_LOAD_VALUE); //500ms
+	return XST_SUCCESS;
+}
+
+
+
+int EmacPs_PHY_init(XEmacPs * EmacPsInstancePtr)
+{
+	int Status;
+	u16 PhyIdentity;
+	u32 PhyAddr;
+
+	/*
+	 * Detect the PHY address
+	 */
+	PhyAddr = XEmacPsDetectPHY(EmacPsInstancePtr);
+
+	if (PhyAddr >= 32) {
+		xil_printf("Error detect phy");
+		return XST_FAILURE;
+	}
+
+	XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, PHY_DETECT_REG1, &PhyIdentity);
+
+
+	if (PhyIdentity == PHY_ID_REALTEK) {
+		xil_printf(" The Realtek PHY detected successflly.\r\n");
+		Status = EmacPsUtilRealtekPhy(EmacPsInstancePtr, PhyAddr);
+	}
+
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error setup phy loopback");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+int EmacPsUtilRealtekPhy(XEmacPs * EmacPsInstancePtr, u32 PhyAddr)
+{
+//Power-on automatically enters Auto-negotiation mode
+//the default setting supports 10/100/1000 speed, half/full duplex
+	LONG Status;
+	u16 PhyReg1  = 0;
+	int i=0;
+
+	xil_printf("Start PHY Auto-negotiation \r\n");
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 1, &PhyReg1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while (!(PhyReg1 & PHY_R1_AN_COMPLETE)) {
+	  XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 1, &PhyReg1);
+	  sleep(1);
+	}
+	xil_printf("Auto-negotiation Complete\r\n");
+
+
+	while (!(PhyReg1 & PHY_R1_LINK_UP)) {
+	XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 1, &PhyReg1);
+	  for(i=0;i<0xfffff;i++);
+	  sleep(1);
+	}
+	xil_printf("Link is Up\r\n");
+
+	return XST_SUCCESS;
+}
+int XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
+{
+	u32 PhyAddr;
+	int Status;
+	u16 PhyReg1;
+	u16 PhyReg2;
+
+	for (PhyAddr = 0; PhyAddr <= 31; PhyAddr++) {
+		Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr,
+					  PHY_DETECT_REG1, &PhyReg1);
+
+		Status |= XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr,
+					   PHY_DETECT_REG2, &PhyReg2);
+
+		if ((Status == XST_SUCCESS) &&
+		    (PhyReg1 > 0x0000) && (PhyReg1 < 0xffff) &&
+		    (PhyReg2 > 0x0000) && (PhyReg2 < 0xffff)) {
+			/* Found a valid PHY address */
+			return PhyAddr;
+		}
+	}
+
+	return PhyAddr;		/* default to 32(max of iteration) */
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function sets up interrupts. It registers interrupt handlers and then
+* enables them..
+*
+* @param	IntcInstancePtr is a pointer to the instance of the SCUGic..
+* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs.
+* @param	TimerInstancePtr is a pointer to the instance of the SCUTimer.
+* @param	EmacPsIntrId is the Interrupt ID for EmacPs and the value
+*		used is taken from xparameters_ps.h.
+* @param	TimerIntrId is the Interrupt ID for SCUTimer and the value
+*		used is taken from xparameters_ps.h.
+*
+* @return	- XST_SUCCESS to indicate success.
+*		- XST_FAILURE to indicate failure
+*
+* @note		None.
+*
+******************************************************************************/
+int XEmacPs_SetupIntrSystem(XScuGic *IntcInstancePtr,
+		XEmacPs *EmacPsInstancePtr, XScuTimer *TimerInstancePtr,
+			u16 EmacPsIntrId, u16 TimerIntrId)
+{
+	int Status = XST_SUCCESS;
+	XScuGic_Config *GicConfig;
+
+	Xil_ExceptionInit();
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	GicConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == GicConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(&IntcInstance, GicConfig,
+	GicConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Connect the interrupt controller interrupt handler to the hardware
+	 * interrupt handling logic in the processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			IntcInstancePtr);
+
+	/*
+	 * Connect the EmacPs device driver handler that will be called when an
+	 * interrupt for the device occurs. The device driver handler performs
+	 * the specific interrupt processing for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, EmacPsIntrId,
+			(Xil_InterruptHandler) XEmacPs_IntrHandler,
+			(void *) EmacPsInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Connect the handler for timer interrupt that will be called when the
+	 * timer.expires.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, TimerIntrId,
+			(Xil_ExceptionHandler)XEmacPs_TimerInterruptHandler_MY,
+			(void *)EmacPsInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	if(Status != XST_SUCCESS){
+	  return XST_FAILURE;
+	}
+	/*
+	 * Enable interrupts from the hardware
+	 */
+	XScuGic_Enable(IntcInstancePtr, EmacPsIntrId);
+	XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+
+	/*
+	 * Enable interrupts in the processor
+	 */
+	Xil_ExceptionEnableMask(XIL_EXCEPTION_FIQ);
+
+	return XST_SUCCESS;
+}
+
+
+
+
+/*****************************************************************************/
+/**
+*
+* This function initializes the EmacPs DMA buffer descriptors. 8 BDs are used
+* on the Tx path and 3 on the Rx path. On the Rx path a 2-dimensional array
+* RxBuf[3][1540] is used. The last byte in each of the buffers is used to mark
+* whether the RxBuf is already submitted or not. For example, if the location
+* RxBuf[1][1539] is 1, then it means the RxBuf[1] is already submitted. During
+* initialization, for 3 BDs, 3 RxBufs are submitted (RxBuf[0, RxBuf[1], ...
+* RxBuf[15]]) and the corresponding entries RxBuf[0][1539], RxBuf[1][1539], ...
+* RxBuf[2][1539] are marked as 1.
+* On the Rx path, all 16 BDs are submitted to the hardware.
+* Once that is done, the timer is started and so is the EmacPs.
+*
+* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+int XEmacPs_InitializeEmacPsDma (XEmacPs *InstancePntr)
+{
+	XEmacPs_BdRing *TxRingPtr;
+	XEmacPs_BdRing *RxRingPtr;
+	XEmacPs_Bd *RxBdPtr;
+	XEmacPs_Bd *CurrBdPtr;
+	int Status;
+	int Index;
+	XEmacPs_Bd BdTemplate;
+
+	Status = XST_SUCCESS;
+
+	TxRingPtr = &XEmacPs_GetTxRing(InstancePntr);
+	RxRingPtr = &XEmacPs_GetRxRing(InstancePntr);
+
+	/*
+	 * BdTemplate is used for cloning. Hence it is cleared so that
+	 * all 16 BDs can be cleared.
+	 */
+	XEmacPs_BdClear(&BdTemplate);
+	Status = XEmacPs_BdRingCreate (RxRingPtr,
+					(u32)RX_BD_START_ADDRESS,
+					(u32)RX_BD_START_ADDRESS,
+					XEMACPS_BD_ALIGNMENT,
+					RX_DESCS);
+	if (Status != XST_SUCCESS) {
+		xil_printf("In %s: BD Ring Creation failed for Rx path \r\n",
+								__func__);
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Clone the 16 BDs with BdTemplate. This will clear all the 16 BDs.
+	 */
+	Status = XEmacPs_BdRingClone(RxRingPtr, &BdTemplate, XEMACPS_RECV);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * BdTemplate is used for cloning on Tx path. Hence it is cleared so
+	 * that all TX_DESCS BDs can be cleared.
+	 */
+	XEmacPs_BdClear(&BdTemplate);
+	/*
+	 * Set the Used Bit.
+	 */
+	XEmacPs_BdSetStatus(&BdTemplate, XEMACPS_TXBUF_USED_MASK);
+
+	/*
+	 * Create TX_DESCS BDs for Tx path.
+	 */
+	Status = XEmacPs_BdRingCreate (TxRingPtr,
+					(u32)TX_BD_START_ADDRESS,
+					(u32)TX_BD_START_ADDRESS,
+					XEMACPS_BD_ALIGNMENT,
+					TX_DESCS);
+	if (Status != XST_SUCCESS) {
+		xil_printf("In %s: BD Ring Creation failed for Tx path \r\n",
+								__func__);
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Clone the TX_DESCS BDs with BdTemplate. This will clear all the TX_DESCS BDs
+	 * and set the Used bit in all of them.
+	 */
+	Status = XEmacPs_BdRingClone (TxRingPtr, &BdTemplate, XEMACPS_SEND);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+
+	sleep(3);
+
+	/*
+	 * Allocate the TX_DESCS BDs on Rx  path.
+	 */
+	Status = XEmacPs_BdRingAlloc (RxRingPtr,RX_DESCS,&RxBdPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("In %s: BD Ring allocation failed for Rx path \r\n",
+								__func__);
+		return XST_FAILURE;
+	}
+	/*
+	 * Mark the RxBufs as used.
+	 */
+	CurrBdPtr = RxBdPtr;
+	for (Index = 0; Index < RX_DESCS; Index++) {
+		XEmacPs_BdSetAddressRx (CurrBdPtr, &(RxBuf[Index][0]));
+		XEmacPs_BdSetLast(CurrBdPtr);
+		RxBuf[Index][XEMACPS_PACKET_LEN - 2] = 1;
+		CurrBdPtr = XEmacPs_BdRingNext (RxRingPtr, CurrBdPtr);
+	}
+	/*
+	 * Submit the BDs on the Rx path.
+	 */
+	Status = XEmacPs_BdRingToHw (RxRingPtr,RX_DESCS,RxBdPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("In %s: BD Ring submission failed for Rx path \r\n",
+								__func__);
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Start the timer and EmacPs.
+	 */
+	XEmacPs_Start(InstancePntr);
+	XScuTimer_Start(&TimerInstance);
+	return XST_SUCCESS;
+}
+
+
+
+
+
+

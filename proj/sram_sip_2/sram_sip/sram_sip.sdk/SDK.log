@@ -1,0 +1,394 @@
+19:14:03 INFO  : Launching XSDB server: xsdb.bat -interactive D:\sram_test\sram_sip_11\sram_sip\sram_sip.sdk\temp_xsdb_launch_script.tcl
+19:14:15 INFO  : XSDB server has started successfully.
+19:14:20 INFO  : Processing command line option -hwspec D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper.hdf.
+19:29:59 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:30:00 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+19:30:02 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+19:30:14 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+19:30:14 INFO  : 'fpga -state' command is executed.
+19:30:14 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:30:15 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+19:30:15 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:30:15 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+19:30:15 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:30:15 INFO  : 'stop' command is executed.
+19:30:16 INFO  : 'ps7_init' command is executed.
+19:30:16 INFO  : 'ps7_post_config' command is executed.
+19:30:17 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:30:17 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+19:30:17 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:30:18 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+19:30:18 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+19:30:18 INFO  : Memory regions updated for context APU
+19:30:18 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:30:18 INFO  : 'con' command is executed.
+19:30:18 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+19:35:11 INFO  : Disconnected from the channel tcfchan#1.
+19:35:12 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+19:35:12 INFO  : 'fpga -state' command is executed.
+19:35:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:35:12 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+19:35:13 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:35:20 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+19:35:20 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:35:21 INFO  : 'stop' command is executed.
+19:35:22 INFO  : 'ps7_init' command is executed.
+19:35:22 INFO  : 'ps7_post_config' command is executed.
+19:35:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:35:22 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+19:35:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:35:23 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+19:35:23 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+19:35:23 INFO  : Memory regions updated for context APU
+19:35:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:35:23 INFO  : 'con' command is executed.
+19:35:23 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+19:40:51 INFO  : Disconnected from the channel tcfchan#2.
+19:40:52 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+19:40:52 INFO  : 'fpga -state' command is executed.
+19:40:52 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:40:52 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+19:40:52 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:41:00 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+19:41:00 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:41:01 INFO  : 'stop' command is executed.
+19:41:01 INFO  : 'ps7_init' command is executed.
+19:41:01 INFO  : 'ps7_post_config' command is executed.
+19:41:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:41:02 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+19:41:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:41:02 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+19:41:02 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+19:41:02 INFO  : Memory regions updated for context APU
+19:41:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:41:03 INFO  : 'con' command is executed.
+19:41:03 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+19:47:18 INFO  : Disconnected from the channel tcfchan#3.
+19:47:18 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+19:47:18 INFO  : 'fpga -state' command is executed.
+19:47:18 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:47:19 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+19:47:19 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:47:27 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+19:47:27 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+19:47:27 INFO  : 'stop' command is executed.
+19:47:28 INFO  : 'ps7_init' command is executed.
+19:47:28 INFO  : 'ps7_post_config' command is executed.
+19:47:28 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:47:28 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+19:47:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:47:29 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+19:47:29 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+19:47:29 INFO  : Memory regions updated for context APU
+19:47:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+19:47:29 INFO  : 'con' command is executed.
+19:47:29 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+20:15:21 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:15:21 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:15:24 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+20:15:49 INFO  : Disconnected from the channel tcfchan#4.
+20:15:50 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:15:50 INFO  : 'fpga -state' command is executed.
+20:15:50 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:15:50 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+20:15:51 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:16:01 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+20:16:01 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:16:01 INFO  : 'stop' command is executed.
+20:16:02 INFO  : 'ps7_init' command is executed.
+20:16:02 INFO  : 'ps7_post_config' command is executed.
+20:16:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:16:03 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+20:16:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:16:03 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+20:16:03 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+20:16:04 INFO  : Memory regions updated for context APU
+20:16:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:16:04 INFO  : 'con' command is executed.
+20:16:04 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+20:24:25 INFO  : Disconnected from the channel tcfchan#5.
+20:24:25 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:24:25 INFO  : 'fpga -state' command is executed.
+20:24:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:24:26 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+20:24:26 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:24:35 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+20:24:36 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:24:36 INFO  : 'stop' command is executed.
+20:24:37 INFO  : 'ps7_init' command is executed.
+20:24:37 INFO  : 'ps7_post_config' command is executed.
+20:24:37 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:24:38 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+20:24:38 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:24:38 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+20:24:38 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+20:24:38 INFO  : Memory regions updated for context APU
+20:24:38 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:24:38 INFO  : 'con' command is executed.
+20:24:38 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+20:55:37 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:55:38 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:55:40 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+20:55:57 INFO  : Disconnected from the channel tcfchan#6.
+20:55:57 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:55:57 INFO  : 'fpga -state' command is executed.
+20:55:58 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:55:58 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+20:55:58 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:56:08 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+20:56:09 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:56:09 INFO  : 'stop' command is executed.
+20:56:10 INFO  : 'ps7_init' command is executed.
+20:56:10 INFO  : 'ps7_post_config' command is executed.
+20:56:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:56:11 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+20:56:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:56:12 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+20:56:12 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+20:56:12 INFO  : Memory regions updated for context APU
+20:56:13 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:56:13 INFO  : 'con' command is executed.
+20:56:13 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+20:58:10 INFO  : Disconnected from the channel tcfchan#7.
+20:58:10 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+20:58:10 INFO  : 'fpga -state' command is executed.
+20:58:10 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:58:11 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+20:58:11 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:58:20 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+20:58:21 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+20:58:21 INFO  : 'stop' command is executed.
+20:58:21 INFO  : 'ps7_init' command is executed.
+20:58:22 INFO  : 'ps7_post_config' command is executed.
+20:58:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:58:22 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+20:58:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:58:23 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+20:58:23 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+20:58:23 INFO  : Memory regions updated for context APU
+20:58:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+20:58:23 INFO  : 'con' command is executed.
+20:58:23 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+21:01:20 INFO  : Disconnected from the channel tcfchan#8.
+21:01:20 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+21:01:21 INFO  : 'fpga -state' command is executed.
+21:01:21 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:01:21 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+21:01:21 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+21:01:31 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+21:01:31 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+21:01:32 INFO  : 'stop' command is executed.
+21:01:32 INFO  : 'ps7_init' command is executed.
+21:01:32 INFO  : 'ps7_post_config' command is executed.
+21:01:33 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:01:33 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+21:01:33 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:01:34 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:01:34 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+21:01:34 INFO  : Memory regions updated for context APU
+21:01:34 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:01:34 INFO  : 'con' command is executed.
+21:01:34 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+
+22:01:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:01:27 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+22:01:29 INFO  : FPGA configured successfully with bitstream "D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+22:01:37 INFO  : Disconnected from the channel tcfchan#9.
+22:01:38 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A" && level==0} -index 1' command is executed.
+22:01:38 INFO  : 'fpga -state' command is executed.
+22:01:38 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:01:38 INFO  : Sourcing of 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+22:01:38 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+22:01:48 INFO  : Hardware design information is loaded from 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf'.
+22:01:48 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0' command is executed.
+22:01:49 INFO  : 'stop' command is executed.
+22:01:50 INFO  : 'ps7_init' command is executed.
+22:01:50 INFO  : 'ps7_post_config' command is executed.
+22:01:50 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:01:50 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+22:01:50 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:01:51 INFO  : The application 'D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf' is downloaded to processor 'ps7_cortexa9_0'.
+22:01:51 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+loadhw D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+dow D:/sram_test/sram_sip_11/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf
+----------------End of Script----------------
+
+22:01:51 INFO  : Memory regions updated for context APU
+22:01:51 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:01:51 INFO  : 'con' command is executed.
+22:01:51 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0
+con
+----------------End of Script----------------
+

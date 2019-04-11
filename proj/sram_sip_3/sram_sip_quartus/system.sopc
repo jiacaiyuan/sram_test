@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="system0">
+ <parameter name="bonusData">bonusData 
+{
+   element sdram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+      datum baseAddress
+      {
+         value = "0";
+         type = "long";
+      }
+   }
+   element avalon_wrapper_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "8392736";
+         type = "long";
+      }
+   }
+   element cpu.instruction_master
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
+   element cpu
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+      datum megawizard_uipreferences
+      {
+         value = "{}";
+         type = "String";
+      }
+   }
+   element system0
+   {
+   }
+   element sdram
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+      datum megawizard_uipreferences
+      {
+         value = "{}";
+         type = "String";
+      }
+   }
+   element sys_clk_timer.s1
+   {
+      datum baseAddress
+      {
+         value = "8392704";
+         type = "long";
+      }
+   }
+   element cpu.jtag_debug_module
+   {
+      datum baseAddress
+      {
+         value = "8390656";
+         type = "long";
+      }
+   }
+   element dm9000a_0
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element avalon_wrapper_0
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element jtag_uart.avalon_jtag_slave
+   {
+      datum baseAddress
+      {
+         value = "8392776";
+         type = "long";
+      }
+   }
+   element dm9000a_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "8392784";
+         type = "long";
+      }
+   }
+   element clk_sdram
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element jtag_uart
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element sys_clk_timer
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element sysid
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element clk_cpu
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element sysid.control_slave
+   {
+      datum baseAddress
+      {
+         value = "8392768";
+         type = "long";
+      }
+   }
+}
+</parameter>
+ <parameter name="deviceFamily" value="CYCLONEII" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="hardcopyCompatible" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="projectName" value="SRAM_TEST.qpf" />
+ <parameter name="systemHash" value="30676665153" />
+ <parameter name="timeStamp" value="1554360051769" />
+ <module name="clk_cpu" kind="clock_source" version="9.0" enabled="1">
+  <parameter name="clockFrequency" value="100000000" />
+  <parameter name="clockFrequencyKnown" value="true" /></module>
+ <module name="cpu" kind="altera_nios2" version="9.0" enabled="1">
+  <parameter name="userDefinedSettings" value="" />
+  <parameter name="setting_showUnpublishedSettings" value="false" />
+  <parameter name="setting_showInternalSettings" value="false" />
+  <parameter name="setting_shadowRegisterSetsPresent" value="false" />
+  <parameter name="setting_preciseSlaveAccessErrorException" value="false" />
+  <parameter name="setting_preciseIllegalMemAccessException" value="false" />
+  <parameter name="setting_preciseDivisionErrorException" value="false" />
+  <parameter name="setting_performanceCounter" value="false" />
+  <parameter name="setting_perfCounterWidth" value="_32" />
+  <parameter name="setting_numShadowRegisterSets" value="1" />
+  <parameter name="setting_illegalMemAccessDetection" value="false" />
+  <parameter name="setting_illegalInstructionsTrap" value="false" />
+  <parameter name="setting_fullWaveformSignals" value="false" />
+  <parameter name="setting_extraExceptionInfo" value="false" />
+  <parameter name="setting_exportPCB" value="false" />
+  <parameter name="setting_eicPresent" value="false" />
+  <parameter name="setting_debugSimGen" value="false" />
+  <parameter name="setting_clearXBitsLDNonBypass" value="true" />
+  <parameter name="setting_branchPredictionType" value="Automatic" />
+  <parameter name="setting_bit31BypassDCache" value="true" />
+  <parameter name="setting_bhtPtrSz" value="_8" />
+  <parameter name="setting_bhtIndexPcOnly" value="false" />
+  <parameter name="setting_avalonDebugPortPresent" value="false" />
+  <parameter name="setting_autoAssignNumShadowRegisterSets" value="true" />
+  <parameter name="setting_alwaysEncrypt" value="true" />
+  <parameter name="setting_allowFullAddressRange" value="false" />
+  <parameter name="setting_activateTrace" value="true" />
+  <parameter name="setting_activateTestEndChecker" value="false" />
+  <parameter name="setting_activateMonitors" value="true" />
+  <parameter name="setting_activateModelChecker" value="false" />
+  <parameter name="setting_HDLSimCachesCleared" value="true" />
+  <parameter name="setting_HBreakTest" value="false" />
+  <parameter name="resetSlave" value="sdram.s1" />
+  <parameter name="resetOffset" value="0" />
+  <parameter name="muldiv_multiplierType" value="EmbeddedMulFast" />
+  <parameter name="muldiv_divider" value="false" />
+  <parameter name="mpu_useLimit" value="false" />
+  <parameter name="mpu_numOfInstRegion" value="8" />
+  <parameter name="mpu_numOfDataRegion" value="8" />
+  <parameter name="mpu_minInstRegionSize" value="_12" />
+  <parameter name="mpu_minDataRegionSize" value="_12" />
+  <parameter name="mpu_enabled" value="false" />
+  <parameter name="mmu_uitlbNumEntries" value="_4" />
+  <parameter name="mmu_udtlbNumEntries" value="_6" />
+  <parameter name="mmu_tlbPtrSz" value="_7" />
+  <parameter name="mmu_tlbNumWays" value="_16" />
+  <parameter name="mmu_processIDNumBits" value="_8" />
+  <parameter name="mmu_enabled" value="false" />
+  <parameter name="mmu_autoAssignTlbPtrSz" value="true" />
+  <parameter name="mmu_TLBMissExcSlave" value="" />
+  <parameter name="mmu_TLBMissExcOffset" value="0" />
+  <parameter name="manuallyAssignCpuID" value="false" />
+  <parameter name="impl" value="Fast" />
+  <parameter name="icache_size" value="_4096" />
+  <parameter name="icache_ramBlockType" value="Automatic" />
+  <parameter name="icache_numTCIM" value="_0" />
+  <parameter name="icache_burstType" value="None" />
+  <parameter name="exceptionSlave" value="sdram.s1" />
+  <parameter name="exceptionOffset" value="32" />
+  <parameter name="debug_triggerArming" value="true" />
+  <parameter name="debug_level" value="Level1" />
+  <parameter name="debug_jtagInstanceID" value="0" />
+  <parameter name="debug_embeddedPLL" value="true" />
+  <parameter name="debug_debugReqSignals" value="false" />
+  <parameter name="debug_assignJtagInstanceID" value="false" />
+  <parameter name="debug_OCIOnchipTrace" value="_128" />
+  <parameter name="dcache_size" value="_0" />
+  <parameter name="dcache_ramBlockType" value="Automatic" />
+  <parameter name="dcache_omitDataMaster" value="false" />
+  <parameter name="dcache_numTCDM" value="_0" />
+  <parameter name="dcache_lineSize" value="_32" />
+  <parameter name="dcache_bursts" value="false" />
+  <parameter name="cpuReset" value="false" />
+  <parameter name="cpuID" value="0" />
+  <parameter name="breakSlave">cpu.jtag_debug_module</parameter>
+  <parameter name="breakOffset" value="32" /></module>
+ <module
+   name="sdram"
+   kind="altera_avalon_new_sdram_controller"
+   version="9.0"
+   enabled="1">
+  <parameter name="TAC" value="5.5" />
+  <parameter name="TMRD" value="3" />
+  <parameter name="TRCD" value="20.0" />
+  <parameter name="TRFC" value="70.0" />
+  <parameter name="TRP" value="20.0" />
+  <parameter name="TWR" value="14.0" />
+  <parameter name="casLatency" value="3" />
+  <parameter name="columnWidth" value="8" />
+  <parameter name="dataWidth" value="16" />
+  <parameter name="generateSimulationModel" value="false" />
+  <parameter name="initNOPDelay" value="0.0" />
+  <parameter name="initRefreshCommands" value="2" />
+  <parameter name="masteredTristateBridgeSlave" value="" />
+  <parameter name="model" value="custom" />
+  <parameter name="numberOfBanks" value="4" />
+  <parameter name="numberOfChipSelects" value="1" />
+  <parameter name="pinsSharedViaTriState" value="false" />
+  <parameter name="powerUpDelay" value="100.0" />
+  <parameter name="refreshPeriod" value="15.625" />
+  <parameter name="registerDataIn" value="true" />
+  <parameter name="rowWidth" value="12" /></module>
+ <module name="sysid" kind="altera_avalon_sysid" version="9.0" enabled="1" />
+ <module
+   name="jtag_uart"
+   kind="altera_avalon_jtag_uart"
+   version="9.0"
+   enabled="1">
+  <parameter name="allowMultipleConnections" value="false" />
+  <parameter name="hubInstanceID" value="0" />
+  <parameter name="readBufferDepth" value="64" />
+  <parameter name="readIRQThreshold" value="8" />
+  <parameter name="simInputCharacterStream" value="" />
+  <parameter name="simInteractiveOptions">INTERACTIVE_ASCII_OUTPUT</parameter>
+  <parameter name="useRegistersForReadBuffer" value="false" />
+  <parameter name="useRegistersForWriteBuffer" value="false" />
+  <parameter name="writeBufferDepth" value="64" />
+  <parameter name="writeIRQThreshold" value="8" /></module>
+ <module name="clk_sdram" kind="clock_source" version="9.0" enabled="1">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" /></module>
+ <module
+   name="sys_clk_timer"
+   kind="altera_avalon_timer"
+   version="9.0"
+   enabled="1">
+  <parameter name="alwaysRun" value="true" />
+  <parameter name="counterSize" value="32" />
+  <parameter name="fixedPeriod" value="true" />
+  <parameter name="period" value="100" />
+  <parameter name="periodUnits" value="MSEC" />
+  <parameter name="resetOutput" value="false" />
+  <parameter name="snapshot" value="true" />
+  <parameter name="timeoutPulseOutput" value="false" />
+  <parameter name="timerPreset" value="CUSTOM" /></module>
+ <module name="dm9000a_0" kind="dm9000a" version="1.0" enabled="1">
+  <parameter name="instancePTF">MODULE dm9000a_0
+{
+   class = "dm9000a";
+   class_version = "1.0";
+   SYSTEM_BUILDER_INFO 
+   {
+      Instantiate_In_System_Module = "1";
+      Has_Clock = "1";
+      Top_Level_Ports_Are_Enumerated = "1";
+      Is_Enabled = "1";
+      Clock_Source = "clk";
+      View 
+      {
+         MESSAGES 
+         {
+         }
+      }
+   }
+   COMPONENT_BUILDER 
+   {
+      GLS_SETTINGS 
+      {
+      }
+   }
+   PORT_WIRING 
+   {
+      PORT iCLK
+      {
+         width = "1";
+         width_expression = "";
+         direction = "input";
+         type = "clk";
+         is_shared = "0";
+         vhdl_record_name = "";
+         vhdl_record_type = "";
+      }
+   }
+   WIZARD_SCRIPT_ARGUMENTS 
+   {
+      hdl_parameters 
+      {
+      }
+   }
+   SIMULATION 
+   {
+      DISPLAY 
+      {
+      }
+   }
+   SLAVE avalon_slave_0
+   {
+      SYSTEM_BUILDER_INFO 
+      {
+         Bus_Type = "avalon";
+         Address_Group = "1";
+         Has_Clock = "0";
+         Address_Width = "1";
+         Address_Alignment = "native";
+         Data_Width = "16";
+         Has_Base_Address = "1";
+         Has_IRQ = "1";
+         Setup_Time = "0ns";
+         Hold_Time = "0ns";
+         Read_Wait_States = "40ns";
+         Write_Wait_States = "40ns";
+         Read_Latency = "0";
+         Maximum_Pending_Read_Transactions = "0";
+         Active_CS_Through_Read_Latency = "1";
+         Is_Printable_Device = "0";
+         Is_Memory_Device = "0";
+         Is_Readable = "1";
+         Is_Writable = "1";
+         Minimum_Uninterrupted_Run_Length = "1";
+      }
+      COMPONENT_BUILDER 
+      {
+         AVS_SETTINGS 
+         {
+            Setup_Value = "0";
+            Read_Wait_Value = "40";
+            Write_Wait_Value = "40";
+            Hold_Value = "0";
+            Timing_Units = "ns";
+            Read_Latency_Value = "0";
+            Minimum_Arbitration_Shares = "1";
+            Active_CS_Through_Read_Latency = "1";
+            Max_Pending_Read_Transactions_Value = "1";
+            Address_Alignment = "native";
+            Is_Printable_Device = "0";
+            Interleave_Bursts = "0";
+            interface_name = "Avalon Slave";
+            external_wait = "0";
+            Is_Memory_Device = "0";
+         }
+      }
+      PORT_WIRING 
+      {
+         PORT iDATA
+         {
+            width = "16";
+            width_expression = "";
+            direction = "input";
+            type = "writedata";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iCMD
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "address";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iRD_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "read_n";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iWR_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "write_n";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iCS_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "chipselect_n";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iRST_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "reset_n";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT iOSC_50
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT oDATA
+         {
+            width = "16";
+            width_expression = "";
+            direction = "output";
+            type = "readdata";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT oINT
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "irq";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_DATA
+         {
+            width = "16";
+            width_expression = "";
+            direction = "inout";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_CMD
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_RD_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_WR_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_CS_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_RST_N
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_CLK
+         {
+            width = "1";
+            width_expression = "";
+            direction = "output";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+         PORT ENET_INT
+         {
+            width = "1";
+            width_expression = "";
+            direction = "input";
+            type = "export";
+            is_shared = "0";
+            vhdl_record_name = "";
+            vhdl_record_type = "";
+         }
+      }
+   }
+   HDL_INFO 
+   {
+      Synthesis_HDL_Files = "__PROJECT_DIRECTORY__/DM9000A_IF.v, __PROJECT_DIRECTORY__/dm9000a_0.v";
+   }
+}
+</parameter></module>
+ <module
+   name="avalon_wrapper_0"
+   kind="avalon_wrapper"
+   version="1.0"
+   enabled="1" />
+ <connection kind="clock" version="9.0" start="clk_cpu.clk" end="cpu.clk" />
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.instruction_master"
+   end="cpu.jtag_debug_module">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00800800" /></connection>
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="cpu.jtag_debug_module">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00800800" /></connection>
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.instruction_master"
+   end="sdram.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" /></connection>
+ <connection kind="avalon" version="6.1" start="cpu.data_master" end="sdram.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" /></connection>
+ <connection kind="clock" version="9.0" start="clk_cpu.clk" end="sysid.clk" />
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="sysid.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00801040" /></connection>
+ <connection kind="clock" version="9.0" start="clk_cpu.clk" end="jtag_uart.clk" />
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="jtag_uart.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00801048" /></connection>
+ <connection kind="interrupt" version="9.0" start="cpu.d_irq" end="jtag_uart.irq">
+  <parameter name="irqNumber" value="1" /></connection>
+ <connection
+   kind="clock"
+   version="9.0"
+   start="clk_cpu.clk"
+   end="sys_clk_timer.clk" />
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="sys_clk_timer.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00801000" /></connection>
+ <connection
+   kind="interrupt"
+   version="9.0"
+   start="cpu.d_irq"
+   end="sys_clk_timer.irq">
+  <parameter name="irqNumber" value="0" /></connection>
+ <connection kind="clock" version="9.0" start="clk_cpu.clk" end="dm9000a_0.clk" />
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="dm9000a_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00801050" /></connection>
+ <connection
+   kind="interrupt"
+   version="9.0"
+   start="cpu.d_irq"
+   end="dm9000a_0.avalon_slave_0_irq">
+  <parameter name="irqNumber" value="2" /></connection>
+ <connection
+   kind="avalon"
+   version="6.1"
+   start="cpu.data_master"
+   end="avalon_wrapper_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00801020" /></connection>
+ <connection
+   kind="clock"
+   version="9.0"
+   start="clk_cpu.clk"
+   end="avalon_wrapper_0.clock_reset" />
+ <connection
+   kind="clock"
+   version="9.0"
+   start="clk_cpu.clk"
+   end="avalon_wrapper_0.clock_sink" />
+ <connection kind="clock" version="9.0" start="clk_sdram.clk" end="sdram.clk" /></system>

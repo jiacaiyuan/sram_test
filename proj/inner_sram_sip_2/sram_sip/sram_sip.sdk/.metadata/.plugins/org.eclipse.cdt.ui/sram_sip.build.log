@@ -1,0 +1,8 @@
+18:24:05 **** Incremental Build of configuration Debug for project sram_sip ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for `main-build'.
+
+18:24:06 Build Finished (took 850ms)
+

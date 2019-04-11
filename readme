@@ -1,0 +1,5 @@
+doc: some document about it
+src: the source code of verilog about the IP in AXI and the format in FPGA using Block-Memory-Generator and some Python using communicate with the host in slave using UART
+proj:some project about the SRAM_TEST
+software: the wireshark that monitor the Ethernet package
+

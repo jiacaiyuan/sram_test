@@ -1,0 +1,84 @@
+!SESSION 2019-03-06 16:05:16.251 -----------------------------------------------
+eclipse.buildId=2018.3
+java.version=1.8.0_112
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:/vivado_demo/sram_sip_1/sram_sip/sram_sip.sdk
+
+This is a continuation of log file D:\vivado_demo\sram_sip_1\sram_sip\sram_sip.sdk\.metadata\.bak_0.log
+Created Time: 2019-03-06 21:25:51.297
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.307
+!MESSAGE XSCT command with result: [configparams force-mem-access 1], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.315
+!MESSAGE XSCT Command: [targets -set -nocase -filter {name =~"APU*" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.350
+!MESSAGE XSCT command with result: [targets -set -nocase -filter {name =~"APU*" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.360
+!MESSAGE XSCT Command: [stop], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.430
+!MESSAGE XSCT command with result: [stop], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.439
+!MESSAGE XSCT Command: [ps7_init], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.784
+!MESSAGE XSCT command with result: [ps7_init], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.793
+!MESSAGE XSCT Command: [ps7_post_config], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.809
+!MESSAGE XSCT command with result: [ps7_post_config], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.818
+!MESSAGE XSCT Command: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.852
+!MESSAGE XSCT command with result: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.861
+!MESSAGE XSCT Command: [rst -processor], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.903
+!MESSAGE XSCT command with result: [rst -processor], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.911
+!MESSAGE XSCT Command: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.946
+!MESSAGE XSCT command with result: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:51.955
+!MESSAGE XSCT Command: [dow D:/vivado_demo/sram_sip_1/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.235
+!MESSAGE XSCT command with result: [dow D:/vivado_demo/sram_sip_1/sram_sip/sram_sip.sdk/sram_sip/Debug/sram_sip.elf], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.384
+!MESSAGE XSCT Command: [configparams force-mem-access 0], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.683
+!MESSAGE XSCT command with result: [configparams force-mem-access 0], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.748
+!MESSAGE XSCT Command: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.863
+!MESSAGE XSCT command with result: [targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Xilinx PYNQ-Z1 003017A6DB98A"} -index 0], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.874
+!MESSAGE XSCT Command: [con], Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:25:52.923
+!MESSAGE XSCT command with result: [con], Result: [null, ]. Thread: Worker-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:50:14.599
+!MESSAGE XSCT Command: [disconnect tcfchan#17], Thread: Thread-1148
+
+!ENTRY com.xilinx.sdk.utils 0 0 2019-03-06 21:50:14.630
+!MESSAGE XSCT command with result: [disconnect tcfchan#17], Result: [null, ]. Thread: Thread-1148

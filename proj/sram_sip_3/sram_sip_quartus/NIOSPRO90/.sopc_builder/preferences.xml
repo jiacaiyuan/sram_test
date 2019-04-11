@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <systemtable filter="All">
+  <columns>
+   <connections preferredWidth="111" />
+   <irq preferredWidth="34" /></columns></systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="412" />
+   <clocksource preferredWidth="412" />
+   <frequency preferredWidth="393" /></columns></clocktable>
+ <window width="1726" height="928" x="160" y="9" />
+ <library expandedCategories="PLL" /></preferences>

@@ -1,0 +1,75 @@
+
+State Machine - |VENDNIOS|system0:u0|system0_clock_1:the_system0_clock_1|system0_clock_1_master_FSM:master_FSM|master_state
+Name master_state.100 master_state.010 master_state.001 
+master_state.001 0 0 0 
+master_state.010 0 1 1 
+master_state.100 1 0 1 
+
+State Machine - |VENDNIOS|system0:u0|system0_clock_1:the_system0_clock_1|system0_clock_1_slave_FSM:slave_FSM|slave_state
+Name slave_state.100 slave_state.010 slave_state.001 
+slave_state.001 0 0 0 
+slave_state.010 0 1 1 
+slave_state.100 1 0 1 
+
+State Machine - |VENDNIOS|system0:u0|system0_clock_0:the_system0_clock_0|system0_clock_0_master_FSM:master_FSM|master_state
+Name master_state.100 master_state.010 master_state.001 
+master_state.001 0 0 0 
+master_state.010 0 1 1 
+master_state.100 1 0 1 
+
+State Machine - |VENDNIOS|system0:u0|system0_clock_0:the_system0_clock_0|system0_clock_0_slave_FSM:slave_FSM|slave_state
+Name slave_state.100 slave_state.010 slave_state.001 
+slave_state.001 0 0 0 
+slave_state.010 0 1 1 
+slave_state.100 1 0 1 
+
+State Machine - |VENDNIOS|system0:u0|sdram:the_sdram|m_next
+Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
+m_next.000000001 0 0 0 0 
+m_next.000001000 0 0 1 1 
+m_next.000010000 0 1 0 1 
+m_next.010000000 1 0 0 1 
+
+State Machine - |VENDNIOS|system0:u0|sdram:the_sdram|m_state
+Name m_state.100000000 m_state.010000000 m_state.001000000 m_state.000100000 m_state.000010000 m_state.000001000 m_state.000000100 m_state.000000010 m_state.000000001 
+m_state.000000001 0 0 0 0 0 0 0 0 0 
+m_state.000000010 0 0 0 0 0 0 0 1 1 
+m_state.000000100 0 0 0 0 0 0 1 0 1 
+m_state.000001000 0 0 0 0 0 1 0 0 1 
+m_state.000010000 0 0 0 0 1 0 0 0 1 
+m_state.000100000 0 0 0 1 0 0 0 0 1 
+m_state.001000000 0 0 1 0 0 0 0 0 1 
+m_state.010000000 0 1 0 0 0 0 0 0 1 
+m_state.100000000 1 0 0 0 0 0 0 0 1 
+
+State Machine - |VENDNIOS|system0:u0|sdram:the_sdram|i_next
+Name i_next.111 i_next.101 i_next.010 i_next.000 
+i_next.000 0 0 0 0 
+i_next.010 0 0 1 1 
+i_next.101 0 1 0 1 
+i_next.111 1 0 0 1 
+
+State Machine - |VENDNIOS|system0:u0|sdram:the_sdram|i_state
+Name i_state.111 i_state.101 i_state.011 i_state.010 i_state.001 i_state.000 
+i_state.000 0 0 0 0 0 0 
+i_state.001 0 0 0 0 1 1 
+i_state.010 0 0 0 1 0 1 
+i_state.011 0 0 1 0 0 1 
+i_state.101 0 1 0 0 0 1 
+i_state.111 1 0 0 0 0 1 
+
+State Machine - |VENDNIOS|system0:u0|cpu:the_cpu|cpu_nios2_oci:the_cpu_nios2_oci|cpu_jtag_debug_module_wrapper:the_cpu_jtag_debug_module_wrapper|cpu_jtag_debug_module_tck:the_cpu_jtag_debug_module_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 
+
+State Machine - |VENDNIOS|system0:u0|Vend:the_Vend|VendMachine:vend|BasicVendingMachine:BVM|state
+Name state.RR state.MD state.PR state.IDEL 
+state.IDEL 0 0 0 0 
+state.PR 0 0 1 1 
+state.MD 0 1 0 1 
+state.RR 1 0 0 1 

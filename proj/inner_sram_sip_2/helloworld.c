@@ -1,0 +1,353 @@
+/******************************************************************************
+*
+* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+
+/*
+ * helloworld.c: simple test application
+ *
+ * This application configures UART 16550 to baud rate 9600.
+ * PS7 UART (Zynq) is not initialized by this application, since
+ * bootrom/bsp configures it to baud rate 115200
+ *
+ * ------------------------------------------------
+ * | UART TYPE   BAUD RATE                        |
+ * ------------------------------------------------
+ *   uartns550   9600
+ *   uartlite    Configurable only in HW design
+ *   ps7_uart    115200 (configured by bootrom/bsp)
+ */
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xil_io.h"
+#include "xparameters.h"
+#include "sram_control.h"
+
+#define CTRL_ID XPAR_SRAM_CONTROL_0_DEVICE_ID
+#define CTRL_BASE XPAR_SRAM_CONTROL_0_S00_AXI_BASEADDR
+//for write
+#define STA_ADDR_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG0_OFFSET
+#define TIM_CFG_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG1_OFFSET
+#define OP_CFG_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG2_OFFSET
+#define SEND_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG3_OFFSET
+#define ENABLE_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG4_OFFSET
+
+//for read
+#define OUTP_ADDR_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG5_OFFSET
+#define OUTP_DATA_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG6_OFFSET
+#define STATUS_OFFSET SRAM_CONTROL_S00_AXI_SLV_REG7_OFFSET
+
+#define DISENA 0x0
+#define ENA 0x1
+#define READ 0x1<<1
+#define WRITE 0x0<<1
+
+#define DELAY     1000000
+#define ADDR_RANGE 0x3ff
+#define DATA_RANGE 0xff
+#define IDLE 0x2
+
+
+void write_one(u32 addr,u32 data)
+{
+	int delay;
+	volatile int status;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,0x0);//only write one
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,0x0);//no-cycle & inc
+	if(addr>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		addr=addr&0x3ff;
+	}
+	if(data>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		data=data&0xff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,addr);//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,data);//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_ONE %x %x\n\r",addr,data);
+	return;
+}
+
+
+void write_all(u32 data)
+{
+	int delay;
+	volatile int status;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,ADDR_RANGE);//write all
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,0x0);//no-cycle & inc
+	if(data>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		data=data&0xff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,0x0);//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,data);//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_ALL %x\n\r",data);
+	return;
+}
+
+
+void write_cfg(u32 addr,u32 data,u32 times,u32 inc_dec,u32 cycle)//times min=0 ->one time
+{
+	int delay;
+	u32 op_cfg=0x0;
+	volatile int status;
+	if(inc_dec!=0) op_cfg=op_cfg|(0x1<<1);
+	else           op_cfg=op_cfg|(0x0<<1);
+	if(cycle!=0)   op_cfg=op_cfg|(0x1<<0);
+	else		   op_cfg=op_cfg|(0x0<<0);
+	op_cfg=op_cfg&(0x3);//to avoid bad condition
+	if(times>ADDR_RANGE) times=times&ADDR_RANGE;//avoid overflow but doesn't matter
+	if(addr>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		addr=addr&0x3ff;
+	}
+	if(data>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		data=data&0xff;
+	}
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,op_cfg);//no-cycle & inc
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,times);//write times
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,addr);//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,data);//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_CFG %x %x %x %x\n\r",op_cfg,times+1,addr,data);
+	return;
+}
+
+u32 read(u32 addr)
+{
+	int delay;
+	volatile int status;
+	u32 result_addr,result_data;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	if(addr>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		addr=addr&0x3ff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,addr);//read addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,READ|ENA);//enable and read
+	for(delay=0;delay<DELAY;delay++);//wait a moment
+    result_addr=SRAM_CONTROL_mReadReg(CTRL_BASE,OUTP_ADDR_OFFSET);//read addr
+    result_data=SRAM_CONTROL_mReadReg(CTRL_BASE,OUTP_DATA_OFFSET);//read data
+    if(result_addr!=addr)
+    {
+    	print("READ ERROR\n\r");
+    }
+    status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	while(status!=IDLE)
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}//ok and return idle
+	printf("READ %x %x\n\r",result_addr,result_data);
+	return result_data;
+}
+
+int scanf_int(void)
+{
+	int i,inp_int=0;
+	for(i=0;i<sizeof(int);i++)
+	{
+		//inp_int = ((e<<8)|(getchar()));//big-endian
+		//instead of scanf
+		inp_int |= ((int)getchar()<<(i<<3));//little-endian
+
+	}
+	getchar();//to absorb the '\r'
+	return inp_int;
+}
+
+
+char scanf_char(void)
+{
+	char inp_char;
+	inp_char=getchar();
+	getchar();//to absorb the '\r'
+	return inp_char;
+}
+
+void test_inp_outp(void)
+{
+	char a;
+	int b,c,d,e;
+	print("test input and output\n\r");
+	a=scanf_char();
+	printf("a=%x\n\r",a);
+
+	b=scanf_int();
+	printf("b=%d\n\r",b);
+	c=scanf_int();
+	printf("c=%d\n\r",c);
+
+	d=scanf_int();
+	e=scanf_int();
+	printf("d=%d,e=%d\n\r",d,e);
+	return;
+}
+
+void test_driver()
+{
+	print("watch the initial value\n\r");
+	read(0x0);
+	read(0x1);
+	read(0x3fe);
+	read(0x3ff);
+	print("test write one and edge addr\n\r");
+	write_one(0x0,0x5a);
+	read(0x0);
+	write_one(0x1,0xa5);
+	read(0x1);
+	write_one(0x3fe,0xaa);
+	read(0x3fe);
+	write_one(0x3ff,0x55);
+	read(0x3ff);
+	print("test write all\n\r");
+	write_all(0x11);
+	read(0x0);
+	read(0x1);
+	read(0x300);
+	read(0x3fe);
+	read(0x3ff);
+
+	print("test write cfg\n\r");
+	print("3 inc ncyc");
+	write_all(0x0);
+	write_cfg(0xa,0x5a,2,0,0);//3 inc ncyc
+	read(0x9);
+	read(0xa);
+	read(0xb);
+	read(0xc);
+	read(0xd);
+	print("3 dec ncyc");
+	write_all(0x0);
+	write_cfg(0x6,0xa5,2,1,0);//3 dec ncyc
+	read(0x7);
+	read(0x6);
+	read(0x5);
+	read(0x4);
+	read(0x3);
+	print("4 inc cyc");
+	write_all(0x0);
+	write_cfg(0x3fe,0xaa,3,0,1);//4 inc cyc
+	read(0x3fd);
+	read(0x3fe);
+	read(0x3ff);
+	read(0x0);
+	read(0x1);
+	read(0x2);
+	print("4 dec cyc");
+	write_all(0x0);
+	write_cfg(0x1,0xaa,3,1,1);//4 dec cyc
+	read(0x2);
+	read(0x1);
+	read(0x0);
+	read(0x3ff);
+	read(0x3fe);
+	read(0x3fd);
+	print("test all\n\r");
+	return;
+}
+
+int main()
+{
+    init_platform();
+    print("TEST_SYSTEM READY\n\r");
+    int inp_cmd;
+    int inp_addr,inp_data;
+    int inp_times,inc_dec,cycle;
+    while(1)
+    {
+    	inp_cmd=scanf_int();
+    	if(inp_cmd==1)//write one
+    	{
+    		inp_addr=scanf_int();
+    		inp_data=scanf_int();
+    		write_one(inp_addr,inp_data);
+    	}
+    	else if(inp_cmd==2)//read
+    	{
+    		inp_addr=scanf_int();
+    		read(inp_addr);
+    	}
+    	else if(inp_cmd==3)//write all
+    	{
+    		inp_data=scanf_int();
+    		write_all(inp_data);
+    	}
+    	else if(inp_cmd==4)//write config
+    	{
+    		inp_addr=scanf_int();
+    		inp_data=scanf_int();
+    		inp_times=scanf_int();
+    		inc_dec=scanf_int();
+    		cycle=scanf_int();
+    		write_cfg(inp_addr,inp_data,inp_times,inc_dec,cycle);
+
+    	}
+    	else //cut the connection
+    	{
+    		break;
+    	}
+    }
+    print("CUTTING CONNECTION\n\r");
+    cleanup_platform();
+    return 0;
+}

@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xil_io.h"
+#include "xparameters.h"
+#include "sram_control.h"
+#include "sram_ctrl_driver.h"
+
+
+
+void write_one(u32 *addr,u32 *data)
+{
+	int delay;
+	volatile int status;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,0x0);//only write one
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,0x0);//no-cycle & inc
+	if((*addr)>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		(*addr)=(*addr)&0x3ff;
+	}
+	if((*data)>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		(*data)=(*data)&0xff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,(*addr));//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,(*data));//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_ONE %x %x\n\r",(*addr),(*data));
+	return;
+}
+
+
+void write_all(u32 data)
+{
+	int delay;
+	volatile int status;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,ADDR_RANGE);//write all
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,0x0);//no-cycle & inc
+	if(data>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		data=data&0xff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,0x0);//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,data);//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_ALL %x\n\r",data);
+	return;
+}
+
+
+
+void write_cfg(u32 *addr,u32 data,u32 times,u32 inc_dec,u32 cycle)//times min=0 ->one time
+{
+	int delay;
+	u32 op_cfg=0x0;
+	volatile int status;
+	if(inc_dec!=0) op_cfg=op_cfg|(0x1<<1);
+	else           op_cfg=op_cfg|(0x0<<1);
+	if(cycle!=0)   op_cfg=op_cfg|(0x1<<0);
+	else		   op_cfg=op_cfg|(0x0<<0);
+	op_cfg=op_cfg&(0x3);//to avoid bad condition
+	if(times>ADDR_RANGE) times=times&ADDR_RANGE;//avoid overflow but doesn't matter
+	if(addr>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		addr=addr&0x3ff;
+	}
+	if(data>DATA_RANGE)
+	{
+		print("DATA OVER RANGE\n\r");
+		data=data&0xff;
+	}
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,OP_CFG_OFFSET,op_cfg);//no-cycle & inc
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,TIM_CFG_OFFSET,times);//write times
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,STA_ADDR_OFFSET,addr);//write addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,data);//write data config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,WRITE|ENA);//enable and write
+	status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);//wait update ok return idle
+	while(status!=IDLE)//finish write and update
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}
+	printf("WRITE_CFG %x %x %x %x\n\r",op_cfg,times,addr,data);
+	return;
+}
+
+
+
+u32 read(u32 addr)
+{
+	int delay;
+	volatile int status;
+	u32 result_addr,result_data;
+	for(delay=0;delay<DELAY;delay++);
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,DISENA);//disable
+	if(addr>ADDR_RANGE)
+	{
+		print("ADDR OVER RANGE\n\r");
+		addr=addr&0x3ff;
+	}
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,SEND_OFFSET,addr);//read addr config
+	SRAM_CONTROL_mWriteReg(CTRL_BASE,ENABLE_OFFSET,READ|ENA);//enable and read
+	for(delay=0;delay<DELAY;delay++);//wait a moment
+    result_addr=SRAM_CONTROL_mReadReg(CTRL_BASE,OUTP_ADDR_OFFSET);//read addr
+    result_data=SRAM_CONTROL_mReadReg(CTRL_BASE,OUTP_DATA_OFFSET);//read data
+    if(result_addr!=addr)
+    {
+    	print("READ ERROR\n\r");
+    }
+    status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	while(status!=IDLE)
+	{
+		status=SRAM_CONTROL_mReadReg(CTRL_BASE,STATUS_OFFSET);
+	}//ok and return idle
+	printf("READ %x %x\n\r",result_addr,result_data);
+	return result_data;
+}
+
+
+
+
+

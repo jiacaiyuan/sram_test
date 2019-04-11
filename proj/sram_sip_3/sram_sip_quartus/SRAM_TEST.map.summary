@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Wed Apr 10 21:08:47 2019
+Quartus II Version : 9.0 Build 132 02/25/2009 SJ Full Version
+Revision Name : SRAM_TEST
+Top-level Entity Name : SRAM_SOC
+Family : Cyclone II
+Total logic elements : 4,582
+    Total combinational functions : 3,518
+    Dedicated logic registers : 2,687
+Total registers : 2687
+Total pins : 105
+Total virtual pins : 0
+Total memory bits : 55,296
+Embedded Multiplier 9-bit elements : 4
+Total PLLs : 1

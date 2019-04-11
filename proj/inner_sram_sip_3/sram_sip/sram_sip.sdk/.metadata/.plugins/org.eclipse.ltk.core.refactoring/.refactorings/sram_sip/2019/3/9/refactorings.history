@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;sram_sip/src/sram_ctrl_driver&apos; to &apos;sram_ctrl_driver.h&apos;" description="Rename resource &apos;sram_ctrl_driver&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/sram_ctrl_driver" name="sram_ctrl_driver.h" stamp="1551439113483" updateReferences="true"/>
+</session>
