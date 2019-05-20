@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench version="2.0">
+<workbenchAdvisor/>
+<window height="738" maximized="true" width="1024" x="160" y="58">
+<fastViewData fastViewLocation="1024"/>
+<intro standby="true"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="132" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.cdt.ui.CElementCreationActionSet" itemType="typeToolBarContribution" x="175" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="135" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.eclipse.ui.WorkingSetActionSet" itemType="typeToolBarContribution" x="55" y="22"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="198" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page focus="true" label="Workspace - Nios II C/C++">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="sram_control.c" partName="sram_control.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/sram_control.c" title="sram_control.c" tooltip="sram_sip/driver/sram_control.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/driver/sram_control.c"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="iniche_init.c" partName="iniche_init.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/iniche_init.c" title="iniche_init.c" tooltip="sram_sip/iniche_init.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/iniche_init.c"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="simple_socket_server.c" partName="simple_socket_server.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/simple_socket_server.c" title="simple_socket_server.c" tooltip="sram_sip/simple_socket_server.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/simple_socket_server.c"/>
+</editor>
+<editor focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="communication.c" partName="communication.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/communication.c" title="communication.c" tooltip="sram_sip/driver/communication.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/driver/communication.c"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="communication.h" partName="communication.h" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/communication.h" title="communication.h" tooltip="sram_sip/driver/communication.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/driver/communication.h"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
+<view id="org.eclipse.cdt.make.ui.views.MakeView" partName="Make Targets">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState columnWidth0="253" columnWidth1="78" columnWidth2="153" columnWidth3="63" columnWidth4="0" horizontalPosition="0" verticalPosition="0">
+<columnOrder columnOrderIndex="0"/>
+<columnOrder columnOrderIndex="1"/>
+<columnOrder columnOrderIndex="2"/>
+<columnOrder columnOrderIndex="3"/>
+<columnOrder columnOrderIndex="4"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.internal.introview" partName="Welcome">
+<viewState>
+<presentation currentPage="root" restore="true"/>
+<standbyPart/>
+</viewState>
+</view>
+<view id="com.altera.nj.ui.Nios2CView" partName="Nios II C/C++ Projects">
+<viewState horizontalPosition="0" verticalPosition="0">
+<selection>
+<element path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip"/>
+</selection>
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="com.altera.nj.ui.Nios2CView_patternFilterId_.*" isEnabled="true"/>
+<child filterId="com.altera.nj.ui.Nios2CView.ExecutableFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.SharedFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.ClosedProjectFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.NonCElementFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.ObjectFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.ArchiveFilter" isEnabled="false"/>
+<child filterId="com.altera.nj.ui.Nios2CView.NonCProjectsFilter" isEnabled="false"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+</views>
+<perspectives activePart="com.altera.nj.ui.Nios2CView" activePerspective="com.altera.nj.ui.CPerspective">
+<perspective editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.altera.nj.ui.Nios2CPerspectiveFactory" id="com.altera.nj.ui.CPerspective" label="Nios II C/C++"/>
+<alwaysOnActionSet id="com.altera.nj.doc.user.NiosIIDocumentation"/>
+<alwaysOnActionSet id="com.altera.nj.launch.NiosIIToolsMenuActionSet"/>
+<alwaysOnActionSet id="com.altera.nj.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.openExternalFile"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.WorkingSetActionSet"/>
+<alwaysOnActionSet id="org.eclipse.update.ui.softwareUpdates"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.SearchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.CElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="com.altera.nj.ui.Nios2CView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.PropertySheet"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="com.altera.ide.chac.views.ChacView"/>
+<new_wizard_action id="com.altera.nj.ui.wizards.ManagedNJWizard"/>
+<new_wizard_action id="com.altera.nj.ui.wizards.ManagedSDKCWizard"/>
+<new_wizard_action id="com.altera.nj.ui.wizards.NJDIYWizard"/>
+<new_wizard_action id="com.altera.nj.ui.wizards.ManagedLibWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewSourceFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewHeaderFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewClassCreationWizard"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="org.eclipse.team.ui.TeamSynchronizingPerspective"/>
+<perspective_action id="com.altera.ide.gprof.ui.GprofPerspective"/>
+<view id="com.altera.nj.ui.Nios2CView"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.PropertySheet"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.cdt.make.ui.views.MakeView"/>
+<view id="org.eclipse.ui.internal.introview"/>
+<layout>
+<mainWindow>
+<info folder="true" part="topLeft">
+<folder activePageID="com.altera.nj.ui.Nios2CView" appearance="2" expanded="2">
+<page content="com.altera.nj.ui.Nios2CView" label="Nios II C/C++ Projects"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@666d83" ratio="0.749499" ratioLeft="748" ratioRight="250" relationship="2" relative="topLeft">
+<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="Welcome"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.249499" ratioLeft="249" ratioRight="749" relationship="2" relative="topLeft"/>
+<info folder="true" part="bottom" ratio="0.7496296" ratioLeft="506" ratioRight="169" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="topRight" ratio="0.875" ratioLeft="742" ratioRight="106" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1b2380e" ratio="0.5" ratioLeft="253" ratioRight="253" relationship="4" relative="topRight">
+<folder activePageID="org.eclipse.cdt.make.ui.views.MakeView" appearance="2" expanded="2">
+<page content="org.eclipse.cdt.make.ui.views.MakeView" label="Make Targets"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/sram_control.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/simple_socket_server.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/communication.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/communication.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/sram_control.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/communication.c"/>
+</editors>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9158" y="6"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="7968" y="1"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="7956" y="11"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9158" y="6"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="7990" y="0"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8119" y="4"/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9158" y="6"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9158" y="6"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8433" y="0"/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9158" y="6"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2637" y="7"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="7921" y="12"/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="2954" y="6"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="7921" y="12"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2637" y="7"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2637" y="7"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position info="not_deleted" x="183" y="12"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2292" y="0"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position info="not_deleted" x="183" y="12"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="2954" y="6"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2292" y="0"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position info="not_deleted" x="183" y="12"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2292" y="0"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="communication.h" index="3">
+<position info="not_deleted" x="183" y="12"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2292" y="0"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="communication.c" index="2">
+<position info="not_deleted" x="2292" y="0"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="sram_control.c" index="0">
+<position info="not_deleted" x="9147" y="0"/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="8080" y="0"/>
+</item>
+<item historyLabel="sram_control.c" index="4">
+<position/>
+</item>
+<item historyLabel="simple_socket_server.c" index="1">
+<position info="not_deleted" x="837" y="0"/>
+</item>
+<item active="true" historyLabel="communication.c" index="5">
+<position/>
+</item>
+</navigationHistory>
+<stickyState/>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="communication.h" tooltip="sram_sip/driver/communication.h">
+<persistable path="/sram_sip/driver/communication.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="communication.c" tooltip="sram_sip/driver/communication.c">
+<persistable path="/sram_sip/driver/communication.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="simple_socket_server.c" tooltip="sram_sip/simple_socket_server.c">
+<persistable path="/sram_sip/simple_socket_server.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="network_utilities.c" tooltip="sram_sip/network_utilities.c">
+<persistable path="/sram_sip/network_utilities.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="iniche_init.c" tooltip="sram_sip/iniche_init.c">
+<persistable path="/sram_sip/iniche_init.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="alt_error_handler.c" tooltip="sram_sip/alt_error_handler.c">
+<persistable path="/sram_sip/alt_error_handler.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="simple_socket_server.h" tooltip="sram_sip/simple_socket_server.h">
+<persistable path="/sram_sip/simple_socket_server.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="network_utilities.h" tooltip="sram_sip/network_utilities.h">
+<persistable path="/sram_sip/network_utilities.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="alt_error_handler.h" tooltip="sram_sip/alt_error_handler.h">
+<persistable path="/sram_sip/alt_error_handler.h"/>
+</file>
+</mruList>
+</workbench>

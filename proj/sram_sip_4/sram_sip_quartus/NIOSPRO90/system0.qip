@@ -1,0 +1,4 @@
+set_global_assignment -name SDC_FILE [file join $::quartus(qip_path) C:/altera/90/ip/altera/sopc_builder_ip/altera_avalon_clock_adapter/altera_avalon_clock_adapter.sdc]
+set_global_assignment -name SDC_FILE [file join $::quartus(qip_path) cpu.sdc]
+set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID F832E4E6CB1300000169D88603D1 
+ 

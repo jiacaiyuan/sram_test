@@ -94,3 +94,12 @@ cyclone2
 EP2C35F672C6
 NOTE: the ip is followed the real SRAM that enable is low
 the communication protocol is different
+
+sram_sip_4: using real SRAM to test Version:sram_ctrl_6,communication by Ethernet
+the ip using sram_ctrl_using real SRAM that produced byself,Also it can update the data to inner reg by command
+
+alter-DE2
+cyclone2
+EP2C35F672C6
+NOTE: the ip is followed the real SRAM that enable is low
+the communication protocol is different
