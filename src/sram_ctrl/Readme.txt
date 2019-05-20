@@ -6,3 +6,5 @@ sram_ctrl_3: the version that can synthesize in FPGA(inner_sram_sip),the functio
 sram_ctrl_4: the version that can fit all size SRAM more config 
 
 sram_ctrl_5: base on the sram_ctrl_4,add the additional function,such as read directly from SRAM and write jump some address
+
+sram_ctrl_6: base on the sram_ctrl_5,add the additional function,such as can update the data in specific address and range to inner register
