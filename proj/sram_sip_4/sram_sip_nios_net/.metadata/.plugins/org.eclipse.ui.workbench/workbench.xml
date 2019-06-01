@@ -37,7 +37,7 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="sram_control.c" partName="sram_control.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/sram_control.c" title="sram_control.c" tooltip="sram_sip/driver/sram_control.c" workbook="DefaultEditorWorkbook">
+<editor focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="sram_control.c" partName="sram_control.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/sram_control.c" title="sram_control.c" tooltip="sram_sip/driver/sram_control.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/driver/sram_control.c"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="iniche_init.c" partName="iniche_init.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/iniche_init.c" title="iniche_init.c" tooltip="sram_sip/iniche_init.c" workbook="DefaultEditorWorkbook">
@@ -46,7 +46,7 @@
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="simple_socket_server.c" partName="simple_socket_server.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/simple_socket_server.c" title="simple_socket_server.c" tooltip="sram_sip/simple_socket_server.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/simple_socket_server.c"/>
 </editor>
-<editor focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="communication.c" partName="communication.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/communication.c" title="communication.c" tooltip="sram_sip/driver/communication.c" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="communication.c" partName="communication.c" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/communication.c" title="communication.c" tooltip="sram_sip/driver/communication.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sram_sip/driver/communication.c"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="communication.h" partName="communication.h" path="D:/sram_test/sram_sip_16/sram_sip_nios_net/sram_sip/driver/communication.h" title="communication.h" tooltip="sram_sip/driver/communication.h" workbook="DefaultEditorWorkbook">
@@ -162,6 +162,7 @@
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="Welcome"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 </presentation>
@@ -209,10 +210,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/communication.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/sram_control.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/communication.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/sram_sip/driver/sram_control.c"/>
 </editors>
-<item historyLabel="communication.c" index="2">
-<position/>
-</item>
 <item historyLabel="communication.h" index="3">
 <position/>
 </item>
@@ -357,7 +356,10 @@
 <item historyLabel="simple_socket_server.c" index="1">
 <position info="not_deleted" x="837" y="0"/>
 </item>
-<item active="true" historyLabel="communication.c" index="5">
+<item historyLabel="communication.c" index="5">
+<position/>
+</item>
+<item active="true" historyLabel="sram_control.c" index="6">
 <position/>
 </item>
 </navigationHistory>

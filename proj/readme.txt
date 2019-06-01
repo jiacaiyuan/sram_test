@@ -103,3 +103,5 @@ cyclone2
 EP2C35F672C6
 NOTE: the ip is followed the real SRAM that enable is low
 the communication protocol is different
+1: once transfer one command
+2: once transfer multi commands

@@ -159,3 +159,4 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name QIP_FILE SDRAM_PLL.qip
 set_global_assignment -name QIP_FILE system0.qip
+set_global_assignment -name MISC_FILE "D:/sram_test/sram_sip_16/sram_sip_quartus/SRAM_TEST.dpf"

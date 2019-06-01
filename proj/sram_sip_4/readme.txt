@@ -1,0 +1,2 @@
+sram_sip_nios_net: the communication is one command once communication and one retrun 
+sram_sip_nios_net_2:  the communication is one communication with multi-commands:add the bandwidth and reduce the time

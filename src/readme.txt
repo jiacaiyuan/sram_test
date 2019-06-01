@@ -128,19 +128,22 @@ NOTE:the version using the FPGA is different from that above using,the bus is av
 			
 
 		software:
-			communication: the communication protocol and the package send or receive format define
-			dm9000a_driver: the Ethernet chip driver in the RTOS
-			sram_control_ip_driver: the dirver of IP that in the avalon-bus
-			other_file: the file that modify in the RTOS
-		version_1: the first constrain of FPGA
-		version_2: the second constrain of FPGA
-	PC:
-		demo: the once communication way
-		sram_sip_manual: the python in the host PC to communicate with FPGA and send cmd to it by the key and info
-		sram_sip_auto: the python in the host PC to communicate with FPGA and send cmd to it by read the cmd-file
-		NOTE: the communication protocol is different from other UART communicate-sram_sip_1,and the communication way is using the Ethernet-package
+                        1:---------once transfer one command
+				communication: the communication protocol and the package send or receive format define
+				dm9000a_driver: the Ethernet chip driver in the RTOS
+				sram_control_ip_driver: the dirver of IP that in the avalon-bus
+				other_file: the file that modify in the RTOS
+			2:---------once transfer multi commands
 
-		error_check: the error check of sram test read the cmd of send to SRAM and the log that get from FPGA to analysis them and get a error log
-		sram_test_algorithm: the newest algorithm;the sram test vector generator
-		Makefile
+	PC:
+		1:---------once transfer one command
+			demo: the once communication way
+			sram_sip_manual: the python in the host PC to communicate with FPGA and send cmd to it by the key and info
+			sram_sip_auto: the python in the host PC to communicate with FPGA and send cmd to it by read the cmd-file
+			NOTE: the communication protocol is different from other UART communicate-sram_sip_1,and the communication way is using the Ethernet-package
+
+			error_check: the error check of sram test read the cmd of send to SRAM and the log that get from FPGA to analysis them and get a error log
+			sram_test_algorithm: the newest algorithm;the sram test vector generator
+			Makefile
+                2---------once transfer multi commands
 helloworld: the little demo about code

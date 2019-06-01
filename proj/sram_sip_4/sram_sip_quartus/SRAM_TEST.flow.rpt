@@ -1,5 +1,5 @@
 Flow report for SRAM_TEST
-Thu May 16 17:03:13 2019
+Fri May 31 21:38:24 2019
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +------------------------------------+------------------------------------------+
-; Flow Status                        ; Successful - Thu May 16 17:03:12 2019    ;
+; Flow Status                        ; Successful - Fri May 31 21:38:24 2019    ;
 ; Quartus II Version                 ; 9.0 Build 132 02/25/2009 SJ Full Version ;
 ; Revision Name                      ; SRAM_TEST                                ;
 ; Top-level Entity Name              ; SRAM_SOC                                 ;
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/16/2019 16:59:44 ;
+; Start date & time ; 05/31/2019 21:34:51 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; SRAM_TEST           ;
 +-------------------+---------------------+
@@ -74,7 +74,7 @@ applicable agreement for further details.
 +---------------------------+---------------------------------+---------------+-------------+------------+
 ; Assignment Name           ; Value                           ; Default Value ; Entity Name ; Section Id ;
 +---------------------------+---------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID     ; 110337781734891.155799718408816 ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID     ; 110337781734891.155930969003020 ; --            ; --          ; --         ;
 ; IP_TOOL_NAME              ; ALTPLL                          ; --            ; --          ; --         ;
 ; IP_TOOL_VERSION           ; 9.0                             ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP    ; 85                              ; --            ; --          ; --         ;
@@ -93,11 +93,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:01:08     ; 1.0                     ; 308 MB              ; 00:01:00                           ;
-; Fitter                  ; 00:01:43     ; 2.9                     ; 357 MB              ; 00:02:33                           ;
-; Assembler               ; 00:00:07     ; 1.0                     ; 295 MB              ; 00:00:07                           ;
-; Classic Timing Analyzer ; 00:00:05     ; 1.0                     ; 226 MB              ; 00:00:05                           ;
-; Total                   ; 00:03:03     ; --                      ; --                  ; 00:03:45                           ;
+; Analysis & Synthesis    ; 00:01:15     ; 1.0                     ; 308 MB              ; 00:01:04                           ;
+; Fitter                  ; 00:01:41     ; 2.6                     ; 357 MB              ; 00:02:22                           ;
+; Assembler               ; 00:00:08     ; 1.0                     ; 295 MB              ; 00:00:07                           ;
+; Classic Timing Analyzer ; 00:00:06     ; 1.0                     ; 226 MB              ; 00:00:06                           ;
+; Total                   ; 00:03:10     ; --                      ; --                  ; 00:03:39                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
